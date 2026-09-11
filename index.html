@@ -141,10 +141,10 @@ async function loadData() {
     </div>`;
   }).join('');
 
-  // Direction bias grouped bar chart
+  // Direction bias grouped bar chart — raw day counts, not percentages
   const directionDatasets = DIR_LABELS.map(lbl => ({
     label: lbl,
-    data: CATS.map(c => (cats[c] && cats[c].direction_pct[lbl]) || 0),
+    data: CATS.map(c => (cats[c] && cats[c].direction_count && cats[c].direction_count[lbl]) || 0),
     backgroundColor: DIR_COLORS[lbl]
   }));
   chartInstances.direction = new Chart(document.getElementById('chart-direction'), {
@@ -153,25 +153,25 @@ async function loadData() {
     options: {
       maintainAspectRatio: false,
       plugins: { legend: { position: 'bottom' } },
-      scales: { y: { min: 0, max: 100, beginAtZero: true, title: { display: true, text: '% of days' } } }
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of days' } } }
     }
   });
 
-  // AM capture rate bar chart
+  // AM capture rate bar chart — raw day counts, not percentages
   chartInstances.amCapture = new Chart(document.getElementById('chart-am-capture'), {
     type: 'bar',
     data: {
       labels: CATS,
       datasets: [{
-        label: 'AM range captured HOD/LOD',
-        data: CATS.map(c => (cats[c] && cats[c].am_capture_pct) || 0),
+        label: 'Days where AM range captured HOD/LOD',
+        data: CATS.map(c => (cats[c] && cats[c].am_capture_count) || 0),
         backgroundColor: '#2563eb'
       }]
     },
     options: {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
-      scales: { y: { min: 0, max: 100, beginAtZero: true, title: { display: true, text: '% of days' } } }
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of days' } } }
     }
   });
 }

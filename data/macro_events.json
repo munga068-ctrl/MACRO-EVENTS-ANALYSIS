@@ -3,6 +3,12 @@
   "categories": {
     "CPI": {
       "n_direction": 10,
+      "direction_count": {
+        "DOWNCLOSE": 4,
+        "UPCLOSE": 0,
+        "BOTHWAYS": 4,
+        "SIDEWAYS": 2
+      },
       "direction_pct": {
         "DOWNCLOSE": 40,
         "UPCLOSE": 0,
@@ -10,10 +16,17 @@
         "SIDEWAYS": 20
       },
       "am_capture_pct": 90,
+      "am_capture_count": 9,
       "am_capture_n": 10
     },
     "Pre-CPI": {
       "n_direction": 10,
+      "direction_count": {
+        "DOWNCLOSE": 5,
+        "UPCLOSE": 4,
+        "BOTHWAYS": 1,
+        "SIDEWAYS": 0
+      },
       "direction_pct": {
         "DOWNCLOSE": 50,
         "UPCLOSE": 40,
@@ -21,10 +34,17 @@
         "SIDEWAYS": 0
       },
       "am_capture_pct": 70,
+      "am_capture_count": 7,
       "am_capture_n": 10
     },
     "PPI": {
       "n_direction": 10,
+      "direction_count": {
+        "DOWNCLOSE": 4,
+        "UPCLOSE": 6,
+        "BOTHWAYS": 0,
+        "SIDEWAYS": 0
+      },
       "direction_pct": {
         "DOWNCLOSE": 40,
         "UPCLOSE": 60,
@@ -32,10 +52,17 @@
         "SIDEWAYS": 0
       },
       "am_capture_pct": 90,
+      "am_capture_count": 9,
       "am_capture_n": 10
     },
     "Pre-PPI": {
       "n_direction": 4,
+      "direction_count": {
+        "DOWNCLOSE": 2,
+        "UPCLOSE": 1,
+        "BOTHWAYS": 0,
+        "SIDEWAYS": 1
+      },
       "direction_pct": {
         "DOWNCLOSE": 50,
         "UPCLOSE": 25,
@@ -43,10 +70,17 @@
         "SIDEWAYS": 25
       },
       "am_capture_pct": 100,
+      "am_capture_count": 4,
       "am_capture_n": 4
     },
     "FOMC": {
       "n_direction": 10,
+      "direction_count": {
+        "DOWNCLOSE": 4,
+        "UPCLOSE": 3,
+        "BOTHWAYS": 2,
+        "SIDEWAYS": 1
+      },
       "direction_pct": {
         "DOWNCLOSE": 40,
         "UPCLOSE": 30,
@@ -54,10 +88,17 @@
         "SIDEWAYS": 10
       },
       "am_capture_pct": 80,
+      "am_capture_count": 8,
       "am_capture_n": 10
     },
     "Pre-FOMC": {
       "n_direction": 7,
+      "direction_count": {
+        "DOWNCLOSE": 0,
+        "UPCLOSE": 3,
+        "BOTHWAYS": 2,
+        "SIDEWAYS": 2
+      },
       "direction_pct": {
         "DOWNCLOSE": 0,
         "UPCLOSE": 43,
@@ -65,10 +106,17 @@
         "SIDEWAYS": 29
       },
       "am_capture_pct": 100,
+      "am_capture_count": 7,
       "am_capture_n": 7
     },
     "NFP": {
       "n_direction": 9,
+      "direction_count": {
+        "DOWNCLOSE": 5,
+        "UPCLOSE": 2,
+        "BOTHWAYS": 1,
+        "SIDEWAYS": 1
+      },
       "direction_pct": {
         "DOWNCLOSE": 56,
         "UPCLOSE": 22,
@@ -76,10 +124,17 @@
         "SIDEWAYS": 11
       },
       "am_capture_pct": 67,
+      "am_capture_count": 6,
       "am_capture_n": 9
     },
     "Pre-NFP": {
       "n_direction": 8,
+      "direction_count": {
+        "DOWNCLOSE": 4,
+        "UPCLOSE": 2,
+        "BOTHWAYS": 1,
+        "SIDEWAYS": 1
+      },
       "direction_pct": {
         "DOWNCLOSE": 50,
         "UPCLOSE": 25,
@@ -87,6 +142,7 @@
         "SIDEWAYS": 12
       },
       "am_capture_pct": 63,
+      "am_capture_count": 5,
       "am_capture_n": 8
     }
   }

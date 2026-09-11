@@ -137,11 +137,13 @@ def build_stats(pages):
         total_dir = sum(direction_counts[key].values())
         categories[key] = {
             "n_direction": total_dir,
+            "direction_count": {lbl: direction_counts[key][lbl] for lbl in direction_labels},
             "direction_pct": {
                 lbl: round(100 * direction_counts[key][lbl] / total_dir, 1) if total_dir else 0
                 for lbl in direction_labels
             },
             "am_capture_pct": round(100 * am_capture[key][0] / am_capture[key][1], 1) if am_capture[key][1] else None,
+            "am_capture_count": am_capture[key][0],
             "am_capture_n": am_capture[key][1],
             "days": sorted(day_list[key], key=lambda d: d["date"] or ""),
         }
