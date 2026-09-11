@@ -153,7 +153,7 @@ async function loadData() {
     options: {
       maintainAspectRatio: false,
       plugins: { legend: { position: 'bottom' } },
-      scales: { y: { max: 100, title: { display: true, text: '% of days' } } }
+      scales: { y: { min: 0, max: 100, beginAtZero: true, title: { display: true, text: '% of days' } } }
     }
   });
 
@@ -171,7 +171,7 @@ async function loadData() {
     options: {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
-      scales: { y: { max: 100, title: { display: true, text: '% of days' } } }
+      scales: { y: { min: 0, max: 100, beginAtZero: true, title: { display: true, text: '% of days' } } }
     }
   });
 }
