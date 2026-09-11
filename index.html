@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macro Events Analysis</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%89%3C/text%3E%3C/svg%3E">
+<script>
+  (function() {
+    const saved = localStorage.getItem('mmtrades-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  })();
+</script>
+<script src="vendor/chart.umd.js"></script>
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #ffffff; --text: #1a1d23; --text-muted: #6b7280;
+    --border: #e5e7eb; --accent: #2563eb; --green: #16a34a; --red: #dc2626;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #0f1115; --card: #171a21; --text: #e5e7eb; --text-muted: #9ca3af;
+    --border: #262a33; --accent: #3b82f6; --green: #22c55e; --red: #ef4444;
+    --shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--text); transition: background .2s, color .2s;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; border-bottom: 1px solid var(--border); background: var(--card);
+  }
+  header h1 { font-size: 18px; margin: 0; }
+  .header-right { display: flex; align-items: center; gap: 14px; }
+  #sync-status { font-size: 12px; color: var(--text-muted); }
+  #sync-status.stale { color: var(--red); }
+  button.icon-btn {
+    background: none; border: 1px solid var(--border); border-radius: 6px;
+    width: 32px; height: 32px; cursor: pointer; font-size: 15px; color: var(--text);
+  }
+  main { max-width: 1700px; margin: 0 auto; padding: 24px 32px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 16px; }
+  .panel {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; box-shadow: var(--shadow); margin-bottom: 16px;
+  }
+  .panel h2 { font-size: 14px; margin: 0 0 4px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .panel .sub { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+  .panel.full { grid-column: 1 / -1; }
+  canvas { max-height: 320px; }
+  .chart-wrap { position: relative; height: 320px; width: 100%; }
+  .cat-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .cat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; box-shadow: var(--shadow); }
+  .cat-card .label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+  .cat-card .value { font-size: 20px; font-weight: 700; }
+  .cat-card .n { font-size: 11px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1>📉 Macro Events Analysis</h1>
+  <div class="header-right">
+    <span id="sync-status">Loading…</span>
+    <button class="icon-btn" id="refresh-btn" title="Refresh">⟳</button>
+    <button class="icon-btn" id="theme-btn" title="Toggle theme">🌓</button>
+  </div>
+</header>
+
+<main>
+  <div class="cat-cards" id="am-capture-cards"></div>
+
+  <div class="grid">
+    <div class="panel full">
+      <h2>Direction Bias by Event Type</h2>
+      <div class="sub">UPCLOSE / DOWNCLOSE / BOTHWAYS / SIDEWAYS — % of days in each category</div>
+      <div class="chart-wrap"><canvas id="chart-direction"></canvas></div>
+    </div>
+    <div class="panel full">
+      <h2>AM Opening Range Capture Rate</h2>
+      <div class="sub">% of days where the first-hour range (AM DR) set the day's actual high or low</div>
+      <div class="chart-wrap"><canvas id="chart-am-capture"></canvas></div>
+    </div>
+  </div>
+</main>
+
+<script>
+const STALE_MINUTES = 60;
+let chartInstances = {};
+const CATS = ["CPI","Pre-CPI","PPI","Pre-PPI","FOMC","Pre-FOMC","NFP","Pre-NFP"];
+const DIR_LABELS = ["DOWNCLOSE","UPCLOSE","BOTHWAYS","SIDEWAYS"];
+const DIR_COLORS = { DOWNCLOSE: '#dc2626', UPCLOSE: '#16a34a', BOTHWAYS: '#f59e0b', SIDEWAYS: '#9ca3af' };
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('mmtrades-theme', theme);
+}
+document.getElementById('theme-btn').addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+  loadData();
+});
+
+function destroyCharts() {
+  Object.values(chartInstances).forEach(c => c && c.destroy());
+  chartInstances = {};
+}
+
+async function loadData() {
+  if (typeof Chart === 'undefined') {
+    document.getElementById('sync-status').textContent = 'Chart.js failed to load';
+    document.getElementById('sync-status').classList.add('stale');
+    return;
+  }
+  destroyCharts();
+  let data;
+  try {
+    const res = await fetch('data/macro_events.json?_=' + Date.now());
+    data = await res.json();
+  } catch (e) {
+    document.getElementById('sync-status').textContent = 'Failed to load data';
+    return;
+  }
+
+  const generated = new Date(data.generated_at);
+  const ageMin = Math.round((Date.now() - generated.getTime()) / 60000);
+  const statusEl = document.getElementById('sync-status');
+  statusEl.textContent = `Synced ${ageMin} min ago`;
+  statusEl.classList.toggle('stale', ageMin > STALE_MINUTES);
+
+  const cats = data.categories;
+
+  // AM capture rate cards
+  document.getElementById('am-capture-cards').innerHTML = CATS.map(c => {
+    const v = cats[c] || {};
+    return `<div class="cat-card">
+      <div class="label">${c}</div>
+      <div class="value">${v.am_capture_pct != null ? v.am_capture_pct + '%' : '—'}</div>
+      <div class="n">n=${v.am_capture_n || 0}</div>
+    </div>`;
+  }).join('');
+
+  // Direction bias grouped bar chart
+  const directionDatasets = DIR_LABELS.map(lbl => ({
+    label: lbl,
+    data: CATS.map(c => (cats[c] && cats[c].direction_pct[lbl]) || 0),
+    backgroundColor: DIR_COLORS[lbl]
+  }));
+  chartInstances.direction = new Chart(document.getElementById('chart-direction'), {
+    type: 'bar',
+    data: { labels: CATS, datasets: directionDatasets },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: { y: { max: 100, title: { display: true, text: '% of days' } } }
+    }
+  });
+
+  // AM capture rate bar chart
+  chartInstances.amCapture = new Chart(document.getElementById('chart-am-capture'), {
+    type: 'bar',
+    data: {
+      labels: CATS,
+      datasets: [{
+        label: 'AM range captured HOD/LOD',
+        data: CATS.map(c => (cats[c] && cats[c].am_capture_pct) || 0),
+        backgroundColor: '#2563eb'
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { max: 100, title: { display: true, text: '% of days' } } }
+    }
+  });
+}
+
+document.getElementById('refresh-btn').addEventListener('click', loadData);
+loadData();
+setInterval(loadData, 15 * 60 * 1000);
+</script>
+</body>
+</html>

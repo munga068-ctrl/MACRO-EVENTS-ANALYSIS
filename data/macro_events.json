@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-09-11T00:00:00Z",
+  "categories": {
+    "CPI": {
+      "n_direction": 10,
+      "direction_pct": {
+        "DOWNCLOSE": 40,
+        "UPCLOSE": 0,
+        "BOTHWAYS": 40,
+        "SIDEWAYS": 20
+      },
+      "am_capture_pct": 90,
+      "am_capture_n": 10
+    },
+    "Pre-CPI": {
+      "n_direction": 10,
+      "direction_pct": {
+        "DOWNCLOSE": 50,
+        "UPCLOSE": 40,
+        "BOTHWAYS": 10,
+        "SIDEWAYS": 0
+      },
+      "am_capture_pct": 70,
+      "am_capture_n": 10
+    },
+    "PPI": {
+      "n_direction": 10,
+      "direction_pct": {
+        "DOWNCLOSE": 40,
+        "UPCLOSE": 60,
+        "BOTHWAYS": 0,
+        "SIDEWAYS": 0
+      },
+      "am_capture_pct": 90,
+      "am_capture_n": 10
+    },
+    "Pre-PPI": {
+      "n_direction": 4,
+      "direction_pct": {
+        "DOWNCLOSE": 50,
+        "UPCLOSE": 25,
+        "BOTHWAYS": 0,
+        "SIDEWAYS": 25
+      },
+      "am_capture_pct": 100,
+      "am_capture_n": 4
+    },
+    "FOMC": {
+      "n_direction": 10,
+      "direction_pct": {
+        "DOWNCLOSE": 40,
+        "UPCLOSE": 30,
+        "BOTHWAYS": 20,
+        "SIDEWAYS": 10
+      },
+      "am_capture_pct": 80,
+      "am_capture_n": 10
+    },
+    "Pre-FOMC": {
+      "n_direction": 7,
+      "direction_pct": {
+        "DOWNCLOSE": 0,
+        "UPCLOSE": 43,
+        "BOTHWAYS": 29,
+        "SIDEWAYS": 29
+      },
+      "am_capture_pct": 100,
+      "am_capture_n": 7
+    },
+    "NFP": {
+      "n_direction": 9,
+      "direction_pct": {
+        "DOWNCLOSE": 56,
+        "UPCLOSE": 22,
+        "BOTHWAYS": 11,
+        "SIDEWAYS": 11
+      },
+      "am_capture_pct": 67,
+      "am_capture_n": 9
+    },
+    "Pre-NFP": {
+      "n_direction": 8,
+      "direction_pct": {
+        "DOWNCLOSE": 50,
+        "UPCLOSE": 25,
+        "BOTHWAYS": 12,
+        "SIDEWAYS": 12
+      },
+      "am_capture_pct": 63,
+      "am_capture_n": 8
+    }
+  }
+}
