@@ -1,113 +1,40 @@
 {
   "generated_at": "2026-09-11T00:00:00Z",
+  "category_order": [
+    "Pre-NFP",
+    "NFP",
+    "Pre-CPI",
+    "CPI",
+    "Pre-FOMC",
+    "FOMC",
+    "Pre-PPI",
+    "PPI"
+  ],
   "categories": {
-    "CPI": {
-      "n_direction": 10,
+    "Pre-NFP": {
+      "n_direction": 8,
       "direction_count": {
         "DOWNCLOSE": 4,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 4,
-        "SIDEWAYS": 2
-      },
-      "direction_pct": {
-        "DOWNCLOSE": 40,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 40,
-        "SIDEWAYS": 20
-      },
-      "am_capture_pct": 90,
-      "am_capture_count": 9,
-      "am_capture_n": 10
-    },
-    "Pre-CPI": {
-      "n_direction": 10,
-      "direction_count": {
-        "DOWNCLOSE": 5,
-        "UPCLOSE": 4,
+        "UPCLOSE": 2,
         "BOTHWAYS": 1,
-        "SIDEWAYS": 0
-      },
-      "direction_pct": {
-        "DOWNCLOSE": 50,
-        "UPCLOSE": 40,
-        "BOTHWAYS": 10,
-        "SIDEWAYS": 0
-      },
-      "am_capture_pct": 70,
-      "am_capture_count": 7,
-      "am_capture_n": 10
-    },
-    "PPI": {
-      "n_direction": 10,
-      "direction_count": {
-        "DOWNCLOSE": 4,
-        "UPCLOSE": 6,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
-      },
-      "direction_pct": {
-        "DOWNCLOSE": 40,
-        "UPCLOSE": 60,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
-      },
-      "am_capture_pct": 90,
-      "am_capture_count": 9,
-      "am_capture_n": 10
-    },
-    "Pre-PPI": {
-      "n_direction": 4,
-      "direction_count": {
-        "DOWNCLOSE": 2,
-        "UPCLOSE": 1,
-        "BOTHWAYS": 0,
         "SIDEWAYS": 1
       },
       "direction_pct": {
         "DOWNCLOSE": 50,
         "UPCLOSE": 25,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 25
+        "BOTHWAYS": 12,
+        "SIDEWAYS": 12
       },
-      "am_capture_pct": 100,
-      "am_capture_count": 4,
-      "am_capture_n": 4
-    },
-    "FOMC": {
-      "n_direction": 10,
-      "direction_count": {
-        "DOWNCLOSE": 4,
-        "UPCLOSE": 3,
-        "BOTHWAYS": 2,
-        "SIDEWAYS": 1
-      },
-      "direction_pct": {
-        "DOWNCLOSE": 40,
-        "UPCLOSE": 30,
-        "BOTHWAYS": 20,
-        "SIDEWAYS": 10
-      },
-      "am_capture_pct": 80,
-      "am_capture_count": 8,
-      "am_capture_n": 10
-    },
-    "Pre-FOMC": {
-      "n_direction": 7,
-      "direction_count": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 3,
-        "BOTHWAYS": 2,
-        "SIDEWAYS": 2
-      },
-      "direction_pct": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 43,
-        "BOTHWAYS": 29,
-        "SIDEWAYS": 29
-      },
-      "am_capture_pct": 100,
-      "am_capture_count": 7,
-      "am_capture_n": 7
+      "am_capture_pct": 63,
+      "am_capture_count": 5,
+      "am_capture_n": 8,
+      "rth_profiles": {
+        "11AM-1PM HOD - 1-2PM LOD": 2,
+        "AM DR Low LOD - 11AM-1PM HOD": 2,
+        "AM DR High HOD - 1-2PM LOD": 2,
+        "AM DR High HOD - 11AM-1PM LOD": 1,
+        "11AM-1PM LOD - 3:30-4PM HOD": 1
+      }
     },
     "NFP": {
       "n_direction": 9,
@@ -125,25 +52,169 @@
       },
       "am_capture_pct": 67,
       "am_capture_count": 6,
-      "am_capture_n": 9
+      "am_capture_n": 9,
+      "rth_profiles": {
+        "11AM-1PM HOD - 3:30-4PM LOD": 1,
+        "1-2PM LOD - 3:30-4PM HOD": 1,
+        "AM DR Low LOD - 3:30-4PM HOD": 2,
+        "AM DR Low LOD - 11AM-1PM HOD": 1,
+        "11AM-1PM HOD - 11AM-1PM LOD": 1,
+        "AM DR High HOD - 3:30-4PM LOD": 1,
+        "AM DR High HOD - 1-2PM LOD": 2
+      }
     },
-    "Pre-NFP": {
-      "n_direction": 8,
+    "Pre-CPI": {
+      "n_direction": 10,
+      "direction_count": {
+        "DOWNCLOSE": 5,
+        "UPCLOSE": 4,
+        "BOTHWAYS": 1,
+        "SIDEWAYS": 0
+      },
+      "direction_pct": {
+        "DOWNCLOSE": 50,
+        "UPCLOSE": 40,
+        "BOTHWAYS": 10,
+        "SIDEWAYS": 0
+      },
+      "am_capture_pct": 70,
+      "am_capture_count": 7,
+      "am_capture_n": 10,
+      "rth_profiles": {
+        "AM DR Low LOD - 2:50-3:10 HOD": 2,
+        "11AM-1PM HOD - 3:30-4PM LOD": 3,
+        "AM DR High HOD - 11AM-1PM LOD": 2,
+        "AM DR Low LOD - 3:30-4PM HOD": 1,
+        "AM DR Low LOD - 11AM-1PM HOD": 1,
+        "AM DR High HOD - 2:50-3:10 LOD": 1
+      }
+    },
+    "CPI": {
+      "n_direction": 10,
       "direction_count": {
         "DOWNCLOSE": 4,
-        "UPCLOSE": 2,
-        "BOTHWAYS": 1,
+        "UPCLOSE": 0,
+        "BOTHWAYS": 4,
+        "SIDEWAYS": 2
+      },
+      "direction_pct": {
+        "DOWNCLOSE": 40,
+        "UPCLOSE": 0,
+        "BOTHWAYS": 40,
+        "SIDEWAYS": 20
+      },
+      "am_capture_pct": 90,
+      "am_capture_count": 9,
+      "am_capture_n": 10,
+      "rth_profiles": {
+        "AM DR Low LOD - 3:30-4PM HOD": 1,
+        "AM DR Low LOD - 11AM-1PM HOD": 2,
+        "AM DR High HOD - 3:30-4PM LOD": 2,
+        "AM DR Low LOD - 1-2PM HOD": 1,
+        "AM DR High HOD - 1-2PM LOD": 2,
+        "11AM-1PM HOD - 11AM-1PM LOD": 1,
+        "AM DR High HOD - 11AM-1PM LOD": 1
+      }
+    },
+    "Pre-FOMC": {
+      "n_direction": 7,
+      "direction_count": {
+        "DOWNCLOSE": 0,
+        "UPCLOSE": 3,
+        "BOTHWAYS": 2,
+        "SIDEWAYS": 2
+      },
+      "direction_pct": {
+        "DOWNCLOSE": 0,
+        "UPCLOSE": 43,
+        "BOTHWAYS": 29,
+        "SIDEWAYS": 29
+      },
+      "am_capture_pct": 100,
+      "am_capture_count": 7,
+      "am_capture_n": 7,
+      "rth_profiles": {
+        "AM DR High HOD - 11AM-1PM LOD": 4,
+        "AM DR Low LOD - 2:50-3:10 HOD": 1,
+        "AM DR Low LOD - 11AM-1PM HOD": 2
+      }
+    },
+    "FOMC": {
+      "n_direction": 10,
+      "direction_count": {
+        "DOWNCLOSE": 4,
+        "UPCLOSE": 3,
+        "BOTHWAYS": 2,
+        "SIDEWAYS": 1
+      },
+      "direction_pct": {
+        "DOWNCLOSE": 40,
+        "UPCLOSE": 30,
+        "BOTHWAYS": 20,
+        "SIDEWAYS": 10
+      },
+      "am_capture_pct": 80,
+      "am_capture_count": 8,
+      "am_capture_n": 10,
+      "rth_profiles": {
+        "AM DR High HOD - 2:50-3:10 LOD": 1,
+        "AM DR High HOD - 11AM-1PM LOD": 1,
+        "AM DR High HOD - 3:30-4PM LOD": 3,
+        "AM DR Low LOD - 11AM-1PM HOD": 2,
+        "AM DR Low LOD - 3:30-4PM HOD": 1,
+        "11AM-1PM LOD - 3:30-4PM HOD": 1,
+        "2:30-4PM - HOD/LOD": 1
+      }
+    },
+    "Pre-PPI": {
+      "n_direction": 4,
+      "direction_count": {
+        "DOWNCLOSE": 2,
+        "UPCLOSE": 1,
+        "BOTHWAYS": 0,
         "SIDEWAYS": 1
       },
       "direction_pct": {
         "DOWNCLOSE": 50,
         "UPCLOSE": 25,
-        "BOTHWAYS": 12,
-        "SIDEWAYS": 12
+        "BOTHWAYS": 0,
+        "SIDEWAYS": 25
       },
-      "am_capture_pct": 63,
-      "am_capture_count": 5,
-      "am_capture_n": 8
+      "am_capture_pct": 100,
+      "am_capture_count": 4,
+      "am_capture_n": 4,
+      "rth_profiles": {
+        "AM DR High HOD - 11AM-1PM LOD": 2,
+        "AM DR High HOD - 3:30-4PM LOD": 1,
+        "AM DR Low LOD - 3:30-4PM HOD": 1
+      }
+    },
+    "PPI": {
+      "n_direction": 10,
+      "direction_count": {
+        "DOWNCLOSE": 4,
+        "UPCLOSE": 6,
+        "BOTHWAYS": 0,
+        "SIDEWAYS": 0
+      },
+      "direction_pct": {
+        "DOWNCLOSE": 40,
+        "UPCLOSE": 60,
+        "BOTHWAYS": 0,
+        "SIDEWAYS": 0
+      },
+      "am_capture_pct": 90,
+      "am_capture_count": 9,
+      "am_capture_n": 10,
+      "rth_profiles": {
+        "AM DR Low LOD - 3:30-4PM HOD": 2,
+        "AM DR High HOD - 1-2PM LOD": 2,
+        "AM DR Low LOD - 11AM-1PM HOD": 1,
+        "AM DR High HOD - 3:30-4PM LOD": 1,
+        "AM DR Low LOD - 2:50-3:10 HOD": 2,
+        "11AM-1PM LOD - 3:30-4PM HOD": 1,
+        "AM DR High HOD - 11AM-1PM LOD": 1
+      }
     }
   }
 }

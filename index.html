@@ -72,15 +72,15 @@
   <div class="cat-cards" id="am-capture-cards"></div>
 
   <div class="grid">
-    <div class="panel full">
+    <div class="panel">
       <h2>Direction Bias by Event Type</h2>
-      <div class="sub">UPCLOSE / DOWNCLOSE / BOTHWAYS / SIDEWAYS — % of days in each category</div>
+      <div class="sub">DOWNCLOSE / UPCLOSE / BOTHWAYS / SIDEWAYS — stacked day counts</div>
       <div class="chart-wrap"><canvas id="chart-direction"></canvas></div>
     </div>
-    <div class="panel full">
-      <h2>AM Opening Range Capture Rate</h2>
-      <div class="sub">% of days where the first-hour range (AM DR) set the day's actual high or low</div>
-      <div class="chart-wrap"><canvas id="chart-am-capture"></canvas></div>
+    <div class="panel">
+      <h2>RTH Profiles by Event Type</h2>
+      <div class="sub">Which session pair formed the day's HOD/LOD — stacked day counts</div>
+      <div class="chart-wrap"><canvas id="chart-rth-profiles"></canvas></div>
     </div>
   </div>
 </main>
@@ -88,9 +88,28 @@
 <script>
 const STALE_MINUTES = 60;
 let chartInstances = {};
-const CATS = ["CPI","Pre-CPI","PPI","Pre-PPI","FOMC","Pre-FOMC","NFP","Pre-NFP"];
+const CATS = ["Pre-NFP","NFP","Pre-CPI","CPI","Pre-FOMC","FOMC","Pre-PPI","PPI"];
 const DIR_LABELS = ["DOWNCLOSE","UPCLOSE","BOTHWAYS","SIDEWAYS"];
 const DIR_COLORS = { DOWNCLOSE: '#dc2626', UPCLOSE: '#16a34a', BOTHWAYS: '#f59e0b', SIDEWAYS: '#9ca3af' };
+const RTH_PALETTE = ['#2563eb','#dc2626','#16a34a','#f59e0b','#7c3aed','#0891b2','#db2777','#65a30d','#ea580c','#4f46e5','#0d9488','#c026d3','#78716c','#b91c1c','#059669'];
+
+// Creates a vertical gradient + gives bars a pill-like cylindrical appearance
+function cylinderGradient(ctx, baseColor) {
+  const { chartArea } = ctx.chart;
+  if (!chartArea) return baseColor;
+  const g = ctx.chart.ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
+  g.addColorStop(0, shade(baseColor, -25));
+  g.addColorStop(0.5, shade(baseColor, 25));
+  g.addColorStop(1, shade(baseColor, -25));
+  return g;
+}
+function shade(hex, pct) {
+  const n = parseInt(hex.slice(1), 16);
+  const r = Math.min(255, Math.max(0, (n >> 16) + Math.round(2.55 * pct)));
+  const g = Math.min(255, Math.max(0, ((n >> 8) & 0xff) + Math.round(2.55 * pct)));
+  const b = Math.min(255, Math.max(0, (n & 0xff) + Math.round(2.55 * pct)));
+  return `rgb(${r},${g},${b})`;
+}
 
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
@@ -131,21 +150,23 @@ async function loadData() {
 
   const cats = data.categories;
 
-  // AM capture rate cards
+  // AM capture rate cards (kept as quick-reference summary above the charts)
   document.getElementById('am-capture-cards').innerHTML = CATS.map(c => {
     const v = cats[c] || {};
     return `<div class="cat-card">
       <div class="label">${c}</div>
       <div class="value">${v.am_capture_pct != null ? v.am_capture_pct + '%' : '—'}</div>
-      <div class="n">n=${v.am_capture_n || 0}</div>
+      <div class="n">AM range hit HOD/LOD · n=${v.am_capture_n || 0}</div>
     </div>`;
   }).join('');
 
-  // Direction bias grouped bar chart — raw day counts, not percentages
+  // Direction bias — stacked, cylindrical-style bars
   const directionDatasets = DIR_LABELS.map(lbl => ({
     label: lbl,
     data: CATS.map(c => (cats[c] && cats[c].direction_count && cats[c].direction_count[lbl]) || 0),
-    backgroundColor: DIR_COLORS[lbl]
+    backgroundColor: (ctx) => cylinderGradient(ctx, DIR_COLORS[lbl]),
+    borderRadius: 8,
+    borderSkipped: false,
   }));
   chartInstances.direction = new Chart(document.getElementById('chart-direction'), {
     type: 'bar',
@@ -153,25 +174,35 @@ async function loadData() {
     options: {
       maintainAspectRatio: false,
       plugins: { legend: { position: 'bottom' } },
-      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of days' } } }
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of days' } }
+      }
     }
   });
 
-  // AM capture rate bar chart — raw day counts, not percentages
-  chartInstances.amCapture = new Chart(document.getElementById('chart-am-capture'), {
+  // RTH Profiles — stacked, cylindrical-style bars, one segment per distinct
+  // HOD/LOD session-pair pattern
+  const allProfiles = new Set();
+  CATS.forEach(c => Object.keys((cats[c] && cats[c].rth_profiles) || {}).forEach(p => allProfiles.add(p)));
+  const profileList = Array.from(allProfiles);
+  const profileDatasets = profileList.map((profile, i) => ({
+    label: profile,
+    data: CATS.map(c => (cats[c] && cats[c].rth_profiles && cats[c].rth_profiles[profile]) || 0),
+    backgroundColor: (ctx) => cylinderGradient(ctx, RTH_PALETTE[i % RTH_PALETTE.length]),
+    borderRadius: 6,
+    borderSkipped: false,
+  }));
+  chartInstances.rthProfiles = new Chart(document.getElementById('chart-rth-profiles'), {
     type: 'bar',
-    data: {
-      labels: CATS,
-      datasets: [{
-        label: 'Days where AM range captured HOD/LOD',
-        data: CATS.map(c => (cats[c] && cats[c].am_capture_count) || 0),
-        backgroundColor: '#2563eb'
-      }]
-    },
+    data: { labels: CATS, datasets: profileDatasets },
     options: {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
-      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of days' } } }
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of days' } }
+      }
     }
   });
 }
