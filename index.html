@@ -87,36 +87,16 @@ const CATS = ["Pre-NFP","NFP","Pre-CPI","CPI","Pre-FOMC","FOMC","Pre-PPI","PPI"]
 const DIR_LABELS = ["DOWNCLOSE","UPCLOSE","BOTHWAYS","SIDEWAYS"];
 const DIR_COLORS = { DOWNCLOSE: '#dc2626', UPCLOSE: '#16a34a', BOTHWAYS: '#f59e0b', SIDEWAYS: '#9ca3af' };
 
-// Creates a vertical gradient + gives bars a pill-like cylindrical appearance
-function cylinderGradient(ctx, baseColor) {
-  const { chartArea } = ctx.chart;
-  if (!chartArea) return baseColor;
-  const g = ctx.chart.ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
-  g.addColorStop(0, shade(baseColor, -25));
-  g.addColorStop(0.5, shade(baseColor, 25));
-  g.addColorStop(1, shade(baseColor, -25));
-  return g;
-}
-function shade(hex, pct) {
-  const n = parseInt(hex.slice(1), 16);
-  const r = Math.min(255, Math.max(0, (n >> 16) + Math.round(2.55 * pct)));
-  const g = Math.min(255, Math.max(0, ((n >> 8) & 0xff) + Math.round(2.55 * pct)));
-  const b = Math.min(255, Math.max(0, (n & 0xff) + Math.round(2.55 * pct)));
-  return `rgb(${r},${g},${b})`;
-}
-
-// Draws each stacked bar as cylindrical segments, sorted largest-to-smallest
-// from bottom to top INDEPENDENTLY per bar/category — Chart.js's native
-// stacking only supports one shared dataset order for every bar, which
-// can't guarantee "largest at bottom" when the ranking differs by category.
-// This plugin ignores the native stack geometry entirely and computes/draws
-// its own, using the y-scale to convert values to pixel positions.
-function sortedCylinderStackPlugin(dataByCategory, colorMap) {
+// Draws each stacked bar as plain flat rectangles, sorted so the LARGEST
+// segment sits at the TOP and values decrease going down — computed
+// INDEPENDENTLY per bar/category, since Chart.js's native stacking only
+// supports one shared dataset order for every bar and can't guarantee a
+// per-bar "highest at top" ordering on its own.
+function sortedStackPlugin(dataByCategory, colorMap) {
   return {
-    id: 'sortedCylinderStack',
+    id: 'sortedStack',
     afterDatasetsDraw(chart) {
       const ctx = chart.ctx;
-      const xScale = chart.scales.x;
       const yScale = chart.scales.y;
       const meta = chart.getDatasetMeta(0);
       chart.data.labels.forEach((catLabel, idx) => {
@@ -124,7 +104,7 @@ function sortedCylinderStackPlugin(dataByCategory, colorMap) {
         if (!barEl) return;
         const entries = Object.entries(dataByCategory[catLabel] || {})
           .filter(([, v]) => v > 0)
-          .sort((a, b) => b[1] - a[1]); // largest first -> drawn at the bottom
+          .sort((a, b) => a[1] - b[1]); // smallest first -> drawn at the bottom, largest ends up on top
         const x = barEl.x;
         const width = barEl.width;
         let cumulative = 0;
@@ -132,22 +112,11 @@ function sortedCylinderStackPlugin(dataByCategory, colorMap) {
           const yBottom = yScale.getPixelForValue(cumulative);
           const yTop = yScale.getPixelForValue(cumulative + value);
           const height = yBottom - yTop;
-          const color = colorMap[label] || '#6b7280';
-          const grad = ctx.createLinearGradient(x - width / 2, 0, x + width / 2, 0);
-          grad.addColorStop(0, shade(color, -25));
-          grad.addColorStop(0.5, shade(color, 25));
-          grad.addColorStop(1, shade(color, -25));
-          ctx.fillStyle = grad;
+          ctx.fillStyle = colorMap[label] || '#6b7280';
           ctx.fillRect(x - width / 2, yTop, width, height);
-          const rx = width / 2;
-          const ry = Math.max(3, Math.min(9, width * 0.16));
-          ctx.beginPath();
-          ctx.ellipse(x, yTop, rx, ry, 0, 0, Math.PI * 2);
-          ctx.fillStyle = shade(color, 38);
-          ctx.fill();
-          ctx.strokeStyle = shade(color, -10);
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
+          ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(x - width / 2, yTop, width, height);
           cumulative += value;
         });
       });
@@ -205,8 +174,8 @@ async function loadData() {
   }).join('');
 
   // Direction bias — native bars are drawn transparent (Chart.js still needs
-  // them for correct axis scaling); the visible cylindrical stack is drawn
-  // by sortedCylinderStackPlugin, sorted independently per category.
+  // them for correct axis scaling); the visible flat stacked bars are drawn
+  // by sortedStackPlugin, sorted independently per category (highest at top).
   const directionByCategory = {};
   CATS.forEach(c => { directionByCategory[c] = (cats[c] && cats[c].direction_count) || {}; });
   const directionDatasets = DIR_LABELS.map(lbl => ({
@@ -217,7 +186,7 @@ async function loadData() {
   chartInstances.direction = new Chart(document.getElementById('chart-direction'), {
     type: 'bar',
     data: { labels: CATS, datasets: directionDatasets },
-    plugins: [sortedCylinderStackPlugin(directionByCategory, DIR_COLORS)],
+    plugins: [sortedStackPlugin(directionByCategory, DIR_COLORS)],
     options: {
       maintainAspectRatio: false,
       plugins: {
