@@ -28,12 +28,11 @@
       "am_capture_pct": 63,
       "am_capture_count": 5,
       "am_capture_n": 8,
-      "rth_profiles": {
-        "11AM-1PM HOD - 1-2PM LOD": 2,
-        "AM DR Low LOD - 11AM-1PM HOD": 2,
-        "AM DR High HOD - 1-2PM LOD": 2,
-        "AM DR High HOD - 11AM-1PM LOD": 1,
-        "11AM-1PM LOD - 3:30-4PM HOD": 1
+      "rth_range": {
+        "11AM-1PM": 6,
+        "AM DR": 5,
+        "1-2PM": 4,
+        "3:30-4PM": 1
       }
     },
     "NFP": {
@@ -53,14 +52,11 @@
       "am_capture_pct": 67,
       "am_capture_count": 6,
       "am_capture_n": 9,
-      "rth_profiles": {
-        "11AM-1PM HOD - 3:30-4PM LOD": 1,
-        "1-2PM LOD - 3:30-4PM HOD": 1,
-        "AM DR Low LOD - 3:30-4PM HOD": 2,
-        "AM DR Low LOD - 11AM-1PM HOD": 1,
-        "11AM-1PM HOD - 11AM-1PM LOD": 1,
-        "AM DR High HOD - 3:30-4PM LOD": 1,
-        "AM DR High HOD - 1-2PM LOD": 2
+      "rth_range": {
+        "AM DR": 6,
+        "3:30-4PM": 5,
+        "11AM-1PM": 4,
+        "1-2PM": 3
       }
     },
     "Pre-CPI": {
@@ -80,13 +76,11 @@
       "am_capture_pct": 70,
       "am_capture_count": 7,
       "am_capture_n": 10,
-      "rth_profiles": {
-        "AM DR Low LOD - 2:50-3:10 HOD": 2,
-        "11AM-1PM HOD - 3:30-4PM LOD": 3,
-        "AM DR High HOD - 11AM-1PM LOD": 2,
-        "AM DR Low LOD - 3:30-4PM HOD": 1,
-        "AM DR Low LOD - 11AM-1PM HOD": 1,
-        "AM DR High HOD - 2:50-3:10 LOD": 1
+      "rth_range": {
+        "AM DR": 7,
+        "11AM-1PM": 6,
+        "3:30-4PM": 4,
+        "2:50-3:10": 3
       }
     },
     "CPI": {
@@ -106,14 +100,11 @@
       "am_capture_pct": 90,
       "am_capture_count": 9,
       "am_capture_n": 10,
-      "rth_profiles": {
-        "AM DR Low LOD - 3:30-4PM HOD": 1,
-        "AM DR Low LOD - 11AM-1PM HOD": 2,
-        "AM DR High HOD - 3:30-4PM LOD": 2,
-        "AM DR Low LOD - 1-2PM HOD": 1,
-        "AM DR High HOD - 1-2PM LOD": 2,
-        "11AM-1PM HOD - 11AM-1PM LOD": 1,
-        "AM DR High HOD - 11AM-1PM LOD": 1
+      "rth_range": {
+        "AM DR": 9,
+        "11AM-1PM": 5,
+        "3:30-4PM": 3,
+        "1-2PM": 3
       }
     },
     "Pre-FOMC": {
@@ -133,10 +124,10 @@
       "am_capture_pct": 100,
       "am_capture_count": 7,
       "am_capture_n": 7,
-      "rth_profiles": {
-        "AM DR High HOD - 11AM-1PM LOD": 4,
-        "AM DR Low LOD - 2:50-3:10 HOD": 1,
-        "AM DR Low LOD - 11AM-1PM HOD": 2
+      "rth_range": {
+        "AM DR": 7,
+        "11AM-1PM": 6,
+        "2:50-3:10": 1
       }
     },
     "FOMC": {
@@ -156,14 +147,12 @@
       "am_capture_pct": 80,
       "am_capture_count": 8,
       "am_capture_n": 10,
-      "rth_profiles": {
-        "AM DR High HOD - 2:50-3:10 LOD": 1,
-        "AM DR High HOD - 11AM-1PM LOD": 1,
-        "AM DR High HOD - 3:30-4PM LOD": 3,
-        "AM DR Low LOD - 11AM-1PM HOD": 2,
-        "AM DR Low LOD - 3:30-4PM HOD": 1,
-        "11AM-1PM LOD - 3:30-4PM HOD": 1,
-        "2:30-4PM - HOD/LOD": 1
+      "rth_range": {
+        "AM DR": 8,
+        "3:30-4PM": 5,
+        "11AM-1PM": 4,
+        "2:30-4PM": 2,
+        "2:50-3:10": 1
       }
     },
     "Pre-PPI": {
@@ -183,10 +172,10 @@
       "am_capture_pct": 100,
       "am_capture_count": 4,
       "am_capture_n": 4,
-      "rth_profiles": {
-        "AM DR High HOD - 11AM-1PM LOD": 2,
-        "AM DR High HOD - 3:30-4PM LOD": 1,
-        "AM DR Low LOD - 3:30-4PM HOD": 1
+      "rth_range": {
+        "AM DR": 4,
+        "11AM-1PM": 2,
+        "3:30-4PM": 2
       }
     },
     "PPI": {
@@ -206,14 +195,12 @@
       "am_capture_pct": 90,
       "am_capture_count": 9,
       "am_capture_n": 10,
-      "rth_profiles": {
-        "AM DR Low LOD - 3:30-4PM HOD": 2,
-        "AM DR High HOD - 1-2PM LOD": 2,
-        "AM DR Low LOD - 11AM-1PM HOD": 1,
-        "AM DR High HOD - 3:30-4PM LOD": 1,
-        "AM DR Low LOD - 2:50-3:10 HOD": 2,
-        "11AM-1PM LOD - 3:30-4PM HOD": 1,
-        "AM DR High HOD - 11AM-1PM LOD": 1
+      "rth_range": {
+        "AM DR": 9,
+        "3:30-4PM": 4,
+        "11AM-1PM": 3,
+        "1-2PM": 2,
+        "2:50-3:10": 2
       }
     }
   }

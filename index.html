@@ -78,8 +78,8 @@
       <div class="chart-wrap"><canvas id="chart-direction"></canvas></div>
     </div>
     <div class="panel">
-      <h2>RTH Profiles by Event Type</h2>
-      <div class="sub">Which session pair formed the day's HOD/LOD — stacked day counts</div>
+      <h2>RTH Range Distribution by Event Type</h2>
+      <div class="sub">Which session window (AM DR, 11AM-1PM, 1-2PM, 2:50-3:10, 3:30-4PM) formed HOD/LOD — each day counts twice</div>
       <div class="chart-wrap"><canvas id="chart-rth-profiles"></canvas></div>
     </div>
   </div>
@@ -91,7 +91,7 @@ let chartInstances = {};
 const CATS = ["Pre-NFP","NFP","Pre-CPI","CPI","Pre-FOMC","FOMC","Pre-PPI","PPI"];
 const DIR_LABELS = ["DOWNCLOSE","UPCLOSE","BOTHWAYS","SIDEWAYS"];
 const DIR_COLORS = { DOWNCLOSE: '#dc2626', UPCLOSE: '#16a34a', BOTHWAYS: '#f59e0b', SIDEWAYS: '#9ca3af' };
-const RTH_PALETTE = ['#2563eb','#dc2626','#16a34a','#f59e0b','#7c3aed','#0891b2','#db2777','#65a30d','#ea580c','#4f46e5','#0d9488','#c026d3','#78716c','#b91c1c','#059669'];
+const RTH_RANGE_COLORS = { 'AM DR': '#2563eb', '11AM-1PM': '#f59e0b', '1-2PM': '#16a34a', '2:50-3:10': '#7c3aed', '3:30-4PM': '#dc2626', '2:30-4PM': '#78716c' };
 
 // Creates a vertical gradient + gives bars a pill-like cylindrical appearance
 function cylinderGradient(ctx, baseColor) {
@@ -213,27 +213,30 @@ async function loadData() {
     }
   });
 
-  // RTH Profiles — stacked, cylindrical-style bars, one segment per distinct
-  // HOD/LOD session-pair pattern. Same largest-at-bottom ordering.
-  const allProfiles = new Set();
-  CATS.forEach(c => Object.keys((cats[c] && cats[c].rth_profiles) || {}).forEach(p => allProfiles.add(p)));
-  const profileList = Array.from(allProfiles);
-  let profileDatasets = profileList.map((profile, i) => ({
-    label: profile,
-    data: CATS.map(c => (cats[c] && cats[c].rth_profiles && cats[c].rth_profiles[profile]) || 0),
-    backgroundColor: (ctx) => cylinderGradient(ctx, RTH_PALETTE[i % RTH_PALETTE.length]),
-    _cylColor: RTH_PALETTE[i % RTH_PALETTE.length],
+  // RTH Range Distribution — stacked, cylindrical-style bars, one segment
+  // per session window (AM DR, 11AM-1PM, 1-2PM, 2:50-3:10, 3:30-4PM). Each
+  // day contributes to two windows (its HOD session and LOD session), which
+  // keeps the segment count small enough for the largest-at-bottom sort to
+  // actually hold up consistently across every bar.
+  const allWindows = new Set();
+  CATS.forEach(c => Object.keys((cats[c] && cats[c].rth_range) || {}).forEach(w => allWindows.add(w)));
+  const windowList = Array.from(allWindows);
+  let rangeDatasets = windowList.map((win) => ({
+    label: win,
+    data: CATS.map(c => (cats[c] && cats[c].rth_range && cats[c].rth_range[win]) || 0),
+    backgroundColor: (ctx) => cylinderGradient(ctx, RTH_RANGE_COLORS[win] || '#6b7280'),
+    _cylColor: RTH_RANGE_COLORS[win] || '#6b7280',
     borderRadius: 0,
     borderSkipped: false,
   }));
-  profileDatasets.sort((a, b) => b.data.reduce((s, v) => s + v, 0) - a.data.reduce((s, v) => s + v, 0));
-  chartInstances.rthProfiles = new Chart(document.getElementById('chart-rth-profiles'), {
+  rangeDatasets.sort((a, b) => b.data.reduce((s, v) => s + v, 0) - a.data.reduce((s, v) => s + v, 0));
+  chartInstances.rthRange = new Chart(document.getElementById('chart-rth-profiles'), {
     type: 'bar',
     plugins: [cylinderCapPlugin],
-    data: { labels: CATS, datasets: profileDatasets },
+    data: { labels: CATS, datasets: rangeDatasets },
     options: {
       maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
+      plugins: { legend: { position: 'bottom' } },
       scales: {
         x: { stacked: true },
         y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of days' } }

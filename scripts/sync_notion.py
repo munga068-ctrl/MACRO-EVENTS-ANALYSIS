@@ -29,6 +29,29 @@ DIRECTION_NAMES = {
     "33bf7bb7-7d6d-8016-bf4f-d1719a470710": "SIDEWAYS",
 }
 
+# RTH profile page id -> the two session windows involved (HOD session,
+# LOD session — order doesn't matter, both get tallied). This decomposes
+# each day into its underlying "RTH Range" session windows rather than the
+# full pair-string, since that's a much cleaner, more consistent set of
+# buckets to stack and sort.
+RTH_PROFILE_SESSIONS = {
+    "2a2f7bb7-7d6d-805c-83bd-e0aa4ab66f53": ["AM DR", "3:30-4PM"],
+    "2a2f7bb7-7d6d-808f-b08b-df211236bba1": ["AM DR", "1-2PM"],
+    "2a2f7bb7-7d6d-80e4-b3d4-ef1d317f380e": ["AM DR", "11AM-1PM"],
+    "303f7bb7-7d6d-8076-92ef-cb57d0a10e16": ["AM DR", "2:50-3:10"],
+    "339f7bb7-7d6d-8005-a190-efdf6a9e4fb8": ["AM DR", "3:30-4PM"],
+    "339f7bb7-7d6d-8014-b10f-c4db97570c0d": ["AM DR", "11AM-1PM"],
+    "339f7bb7-7d6d-8017-b1e6-ef2c1c1b9e42": ["AM DR", "1-2PM"],
+    "339f7bb7-7d6d-8051-a990-cbf4451c80af": ["AM DR", "AM DR"],
+    "339f7bb7-7d6d-806e-b59d-cc71859f8018": ["11AM-1PM", "3:30-4PM"],
+    "339f7bb7-7d6d-8097-b7a8-e0a89f67ad7d": ["1-2PM", "3:30-4PM"],
+    "339f7bb7-7d6d-80a0-849c-c9e959a66894": ["11AM-1PM", "3:30-4PM"],
+    "339f7bb7-7d6d-80bb-8a5c-d37fba209ae0": ["11AM-1PM", "11AM-1PM"],
+    "33af7bb7-7d6d-808a-be8e-f87aa014db8d": ["AM DR", "2:50-3:10"],
+    "34cf7bb7-7d6d-8072-b982-e4ed843b7d7e": ["11AM-1PM", "1-2PM"],
+    "3adf7bb7-7d6d-808f-8fe0-f4011e2d2a28": ["2:30-4PM", "2:30-4PM"],
+}
+
 RTH_PROFILE_NAMES = {
     "2a2f7bb7-7d6d-805c-83bd-e0aa4ab66f53": "AM DR Low LOD - 3:30-4PM HOD",
     "2a2f7bb7-7d6d-808f-b08b-df211236bba1": "AM DR Low LOD - 1-2PM HOD",
@@ -124,7 +147,7 @@ def build_stats(pages):
     # per-category counters
     direction_counts = defaultdict(Counter)
     am_capture = defaultdict(lambda: [0, 0])  # [captured, total]
-    rth_profile_counts = defaultdict(Counter)
+    rth_range_counts = defaultdict(Counter)
     day_list = defaultdict(list)
 
     for p in pages:
@@ -136,7 +159,7 @@ def build_stats(pages):
         rth_id = relation_id(props.get("RTH PROFILES"))
         direction = DIRECTION_NAMES.get(dir_id)
         am_hit = RTH_AM_CAPTURE.get(rth_id)
-        rth_name = RTH_PROFILE_NAMES.get(rth_id)
+        sessions = RTH_PROFILE_SESSIONS.get(rth_id)
 
         cats = categorize(name)
         for event, is_pre in cats:
@@ -147,8 +170,9 @@ def build_stats(pages):
                 am_capture[key][1] += 1
                 if am_hit:
                     am_capture[key][0] += 1
-            if rth_name:
-                rth_profile_counts[key][rth_name] += 1
+            if sessions:
+                for s in sessions:
+                    rth_range_counts[key][s] += 1
             day_list[key].append({"name": name, "date": start, "direction": direction})
 
     order = ["Pre-NFP", "NFP", "Pre-CPI", "CPI", "Pre-FOMC", "FOMC", "Pre-PPI", "PPI"]
@@ -167,7 +191,7 @@ def build_stats(pages):
             "am_capture_pct": round(100 * am_capture[key][0] / am_capture[key][1], 1) if am_capture[key][1] else None,
             "am_capture_count": am_capture[key][0],
             "am_capture_n": am_capture[key][1],
-            "rth_profiles": dict(rth_profile_counts[key]),
+            "rth_range": dict(rth_range_counts[key]),
             "days": sorted(day_list[key], key=lambda d: d["date"] or ""),
         }
 
