@@ -207,6 +207,19 @@ def main():
 
     stats = build_stats(pages)
     os.makedirs("data", exist_ok=True)
+
+    # TEMPORARY DIAGNOSTIC
+    if pages:
+        sample = pages[0]
+        debug = {
+            "sample_name": "".join(t.get("plain_text", "") for t in sample.get("properties", {}).get("Name", {}).get("title", [])),
+            "DIRECTION_raw": sample.get("properties", {}).get("DIRECTION"),
+        }
+        with open("data/debug.log", "w") as f:
+            f.write(json.dumps(debug, indent=2, default=str))
+    elif os.path.exists("data/debug.log"):
+        os.remove("data/debug.log")
+
     with open("data/macro_events.json", "w") as f:
         json.dump(stats, f, indent=2)
     print(f"Synced {len(pages)} tagged pages -> data/macro_events.json")
