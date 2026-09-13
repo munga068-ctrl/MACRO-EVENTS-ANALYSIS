@@ -72,15 +72,10 @@
   <div class="cat-cards" id="am-capture-cards"></div>
 
   <div class="grid">
-    <div class="panel">
+    <div class="panel full">
       <h2>Direction Bias by Event Type</h2>
       <div class="sub">DOWNCLOSE / UPCLOSE / BOTHWAYS / SIDEWAYS — stacked day counts</div>
       <div class="chart-wrap"><canvas id="chart-direction"></canvas></div>
-    </div>
-    <div class="panel">
-      <h2>RTH Range Distribution by Event Type</h2>
-      <div class="sub">Each day's actual RTH RANGE value from Notion — largest segment at bottom, per bar</div>
-      <div class="chart-wrap"><canvas id="chart-rth-profiles"></canvas></div>
     </div>
   </div>
 </main>
@@ -91,19 +86,6 @@ let chartInstances = {};
 const CATS = ["Pre-NFP","NFP","Pre-CPI","CPI","Pre-FOMC","FOMC","Pre-PPI","PPI"];
 const DIR_LABELS = ["DOWNCLOSE","UPCLOSE","BOTHWAYS","SIDEWAYS"];
 const DIR_COLORS = { DOWNCLOSE: '#dc2626', UPCLOSE: '#16a34a', BOTHWAYS: '#f59e0b', SIDEWAYS: '#9ca3af' };
-const RTH_RANGE_COLORS = {
-  'AM DR-[3:30-4PM]': '#2563eb',
-  'AM DR-[11AM-1PM]': '#f59e0b',
-  'AM DR-[1-2PM]': '#16a34a',
-  'AM DR-[2:50-3:10]': '#7c3aed',
-  'AM DR [Low-High]': '#0891b2',
-  '11AM-1PM-[3:30-4PM]': '#dc2626',
-  '11AM-1PM-[1-2PM]': '#db2777',
-  '11AM-1PM-[11AM-1PM]': '#ea580c',
-  '11AM-1PM-[2:50-3:10]': '#65a30d',
-  '1-2PM-[3:30-4PM]': '#4f46e5',
-  'PM [LOD-HOD]': '#78716c',
-};
 
 // Creates a vertical gradient + gives bars a pill-like cylindrical appearance
 function cylinderGradient(ctx, baseColor) {
@@ -242,37 +224,6 @@ async function loadData() {
         legend: {
           position: 'bottom',
           labels: { generateLabels: () => DIR_LABELS.map(lbl => ({ text: lbl, fillStyle: DIR_COLORS[lbl], strokeStyle: DIR_COLORS[lbl] })) }
-        }
-      },
-      scales: {
-        x: { stacked: true },
-        y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of days' } }
-      }
-    }
-  });
-
-  // RTH Range Distribution — same per-bar-sorted cylindrical approach, using
-  // the actual RTH RANGE property from Notion.
-  const allWindows = new Set();
-  CATS.forEach(c => Object.keys((cats[c] && cats[c].rth_range) || {}).forEach(w => allWindows.add(w)));
-  const windowList = Array.from(allWindows);
-  const rangeByCategory = {};
-  CATS.forEach(c => { rangeByCategory[c] = (cats[c] && cats[c].rth_range) || {}; });
-  const rangeDatasets = windowList.map((win) => ({
-    label: win,
-    data: CATS.map(c => (cats[c] && cats[c].rth_range && cats[c].rth_range[win]) || 0),
-    backgroundColor: 'transparent',
-  }));
-  chartInstances.rthRange = new Chart(document.getElementById('chart-rth-profiles'), {
-    type: 'bar',
-    data: { labels: CATS, datasets: rangeDatasets },
-    plugins: [sortedCylinderStackPlugin(rangeByCategory, RTH_RANGE_COLORS)],
-    options: {
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: { generateLabels: () => windowList.map(w => ({ text: w, fillStyle: RTH_RANGE_COLORS[w] || '#6b7280', strokeStyle: RTH_RANGE_COLORS[w] || '#6b7280' })) }
         }
       },
       scales: {
