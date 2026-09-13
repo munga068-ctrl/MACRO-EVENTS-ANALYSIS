@@ -79,7 +79,7 @@
     </div>
     <div class="panel">
       <h2>RTH Range Distribution by Event Type</h2>
-      <div class="sub">Which session window (AM DR, 11AM-1PM, 1-2PM, 2:50-3:10, 3:30-4PM) formed HOD/LOD — each day counts twice</div>
+      <div class="sub">Each day's actual RTH RANGE value from Notion — largest segment at bottom, per bar</div>
       <div class="chart-wrap"><canvas id="chart-rth-profiles"></canvas></div>
     </div>
   </div>
@@ -91,7 +91,19 @@ let chartInstances = {};
 const CATS = ["Pre-NFP","NFP","Pre-CPI","CPI","Pre-FOMC","FOMC","Pre-PPI","PPI"];
 const DIR_LABELS = ["DOWNCLOSE","UPCLOSE","BOTHWAYS","SIDEWAYS"];
 const DIR_COLORS = { DOWNCLOSE: '#dc2626', UPCLOSE: '#16a34a', BOTHWAYS: '#f59e0b', SIDEWAYS: '#9ca3af' };
-const RTH_RANGE_COLORS = { 'AM DR': '#2563eb', '11AM-1PM': '#f59e0b', '1-2PM': '#16a34a', '2:50-3:10': '#7c3aed', '3:30-4PM': '#dc2626', '2:30-4PM': '#78716c' };
+const RTH_RANGE_COLORS = {
+  'AM DR-[3:30-4PM]': '#2563eb',
+  'AM DR-[11AM-1PM]': '#f59e0b',
+  'AM DR-[1-2PM]': '#16a34a',
+  'AM DR-[2:50-3:10]': '#7c3aed',
+  'AM DR [Low-High]': '#0891b2',
+  '11AM-1PM-[3:30-4PM]': '#dc2626',
+  '11AM-1PM-[1-2PM]': '#db2777',
+  '11AM-1PM-[11AM-1PM]': '#ea580c',
+  '11AM-1PM-[2:50-3:10]': '#65a30d',
+  '1-2PM-[3:30-4PM]': '#4f46e5',
+  'PM [LOD-HOD]': '#78716c',
+};
 
 // Creates a vertical gradient + gives bars a pill-like cylindrical appearance
 function cylinderGradient(ctx, baseColor) {
@@ -111,33 +123,55 @@ function shade(hex, pct) {
   return `rgb(${r},${g},${b})`;
 }
 
-// Draws an elliptical top cap on every bar/segment so stacked bars read as
-// stacked cylindrical drums rather than flat rectangles.
-const cylinderCapPlugin = {
-  id: 'cylinderCaps',
-  afterDatasetsDraw(chart) {
-    const ctx = chart.ctx;
-    chart.data.datasets.forEach((dataset, dsIndex) => {
-      const meta = chart.getDatasetMeta(dsIndex);
-      if (meta.hidden || !dataset._cylColor) return;
-      meta.data.forEach((bar) => {
-        const props = bar.getProps(['x', 'y', 'base', 'width', 'height'], true);
-        if (!props.height || props.height <= 0) return;
-        const rx = props.width / 2;
-        const ry = Math.max(3, Math.min(9, props.width * 0.16));
-        ctx.save();
-        ctx.beginPath();
-        ctx.ellipse(props.x, props.y, rx, ry, 0, 0, Math.PI * 2);
-        ctx.fillStyle = shade(dataset._cylColor, 38);
-        ctx.fill();
-        ctx.strokeStyle = shade(dataset._cylColor, -10);
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-        ctx.restore();
+// Draws each stacked bar as cylindrical segments, sorted largest-to-smallest
+// from bottom to top INDEPENDENTLY per bar/category — Chart.js's native
+// stacking only supports one shared dataset order for every bar, which
+// can't guarantee "largest at bottom" when the ranking differs by category.
+// This plugin ignores the native stack geometry entirely and computes/draws
+// its own, using the y-scale to convert values to pixel positions.
+function sortedCylinderStackPlugin(dataByCategory, colorMap) {
+  return {
+    id: 'sortedCylinderStack',
+    afterDatasetsDraw(chart) {
+      const ctx = chart.ctx;
+      const xScale = chart.scales.x;
+      const yScale = chart.scales.y;
+      const meta = chart.getDatasetMeta(0);
+      chart.data.labels.forEach((catLabel, idx) => {
+        const barEl = meta.data[idx];
+        if (!barEl) return;
+        const entries = Object.entries(dataByCategory[catLabel] || {})
+          .filter(([, v]) => v > 0)
+          .sort((a, b) => b[1] - a[1]); // largest first -> drawn at the bottom
+        const x = barEl.x;
+        const width = barEl.width;
+        let cumulative = 0;
+        entries.forEach(([label, value]) => {
+          const yBottom = yScale.getPixelForValue(cumulative);
+          const yTop = yScale.getPixelForValue(cumulative + value);
+          const height = yBottom - yTop;
+          const color = colorMap[label] || '#6b7280';
+          const grad = ctx.createLinearGradient(x - width / 2, 0, x + width / 2, 0);
+          grad.addColorStop(0, shade(color, -25));
+          grad.addColorStop(0.5, shade(color, 25));
+          grad.addColorStop(1, shade(color, -25));
+          ctx.fillStyle = grad;
+          ctx.fillRect(x - width / 2, yTop, width, height);
+          const rx = width / 2;
+          const ry = Math.max(3, Math.min(9, width * 0.16));
+          ctx.beginPath();
+          ctx.ellipse(x, yTop, rx, ry, 0, 0, Math.PI * 2);
+          ctx.fillStyle = shade(color, 38);
+          ctx.fill();
+          ctx.strokeStyle = shade(color, -10);
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+          cumulative += value;
+        });
       });
-    });
-  }
-};
+    }
+  };
+}
 
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
@@ -188,24 +222,28 @@ async function loadData() {
     </div>`;
   }).join('');
 
-  // Direction bias — stacked, cylindrical-style bars. Largest-total segment
-  // goes first in the array so it renders at the bottom of each stack.
-  let directionDatasets = DIR_LABELS.map(lbl => ({
+  // Direction bias — native bars are drawn transparent (Chart.js still needs
+  // them for correct axis scaling); the visible cylindrical stack is drawn
+  // by sortedCylinderStackPlugin, sorted independently per category.
+  const directionByCategory = {};
+  CATS.forEach(c => { directionByCategory[c] = (cats[c] && cats[c].direction_count) || {}; });
+  const directionDatasets = DIR_LABELS.map(lbl => ({
     label: lbl,
     data: CATS.map(c => (cats[c] && cats[c].direction_count && cats[c].direction_count[lbl]) || 0),
-    backgroundColor: (ctx) => cylinderGradient(ctx, DIR_COLORS[lbl]),
-    _cylColor: DIR_COLORS[lbl],
-    borderRadius: 0,
-    borderSkipped: false,
+    backgroundColor: 'transparent',
   }));
-  directionDatasets.sort((a, b) => b.data.reduce((s, v) => s + v, 0) - a.data.reduce((s, v) => s + v, 0));
   chartInstances.direction = new Chart(document.getElementById('chart-direction'), {
     type: 'bar',
     data: { labels: CATS, datasets: directionDatasets },
-    plugins: [cylinderCapPlugin],
+    plugins: [sortedCylinderStackPlugin(directionByCategory, DIR_COLORS)],
     options: {
       maintainAspectRatio: false,
-      plugins: { legend: { position: 'bottom' } },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { generateLabels: () => DIR_LABELS.map(lbl => ({ text: lbl, fillStyle: DIR_COLORS[lbl], strokeStyle: DIR_COLORS[lbl] })) }
+        }
+      },
       scales: {
         x: { stacked: true },
         y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of days' } }
@@ -213,30 +251,30 @@ async function loadData() {
     }
   });
 
-  // RTH Range Distribution — stacked, cylindrical-style bars, one segment
-  // per session window (AM DR, 11AM-1PM, 1-2PM, 2:50-3:10, 3:30-4PM). Each
-  // day contributes to two windows (its HOD session and LOD session), which
-  // keeps the segment count small enough for the largest-at-bottom sort to
-  // actually hold up consistently across every bar.
+  // RTH Range Distribution — same per-bar-sorted cylindrical approach, using
+  // the actual RTH RANGE property from Notion.
   const allWindows = new Set();
   CATS.forEach(c => Object.keys((cats[c] && cats[c].rth_range) || {}).forEach(w => allWindows.add(w)));
   const windowList = Array.from(allWindows);
-  let rangeDatasets = windowList.map((win) => ({
+  const rangeByCategory = {};
+  CATS.forEach(c => { rangeByCategory[c] = (cats[c] && cats[c].rth_range) || {}; });
+  const rangeDatasets = windowList.map((win) => ({
     label: win,
     data: CATS.map(c => (cats[c] && cats[c].rth_range && cats[c].rth_range[win]) || 0),
-    backgroundColor: (ctx) => cylinderGradient(ctx, RTH_RANGE_COLORS[win] || '#6b7280'),
-    _cylColor: RTH_RANGE_COLORS[win] || '#6b7280',
-    borderRadius: 0,
-    borderSkipped: false,
+    backgroundColor: 'transparent',
   }));
-  rangeDatasets.sort((a, b) => b.data.reduce((s, v) => s + v, 0) - a.data.reduce((s, v) => s + v, 0));
   chartInstances.rthRange = new Chart(document.getElementById('chart-rth-profiles'), {
     type: 'bar',
-    plugins: [cylinderCapPlugin],
     data: { labels: CATS, datasets: rangeDatasets },
+    plugins: [sortedCylinderStackPlugin(rangeByCategory, RTH_RANGE_COLORS)],
     options: {
       maintainAspectRatio: false,
-      plugins: { legend: { position: 'bottom' } },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { generateLabels: () => windowList.map(w => ({ text: w, fillStyle: RTH_RANGE_COLORS[w] || '#6b7280', strokeStyle: RTH_RANGE_COLORS[w] || '#6b7280' })) }
+        }
+      },
       scales: {
         x: { stacked: true },
         y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 }, title: { display: true, text: 'Number of days' } }

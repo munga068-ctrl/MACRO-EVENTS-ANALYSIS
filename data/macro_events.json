@@ -29,10 +29,11 @@
       "am_capture_count": 5,
       "am_capture_n": 8,
       "rth_range": {
-        "11AM-1PM": 6,
-        "AM DR": 5,
-        "1-2PM": 4,
-        "3:30-4PM": 1
+        "AM DR [Low-High]": 2,
+        "AM DR-[3:30-4PM]": 2,
+        "AM DR-[1-2PM]": 2,
+        "11AM-1PM-[1-2PM]": 1,
+        "AM DR-[11AM-1PM]": 1
       }
     },
     "NFP": {
@@ -53,10 +54,11 @@
       "am_capture_count": 6,
       "am_capture_n": 9,
       "rth_range": {
-        "AM DR": 6,
-        "3:30-4PM": 5,
-        "11AM-1PM": 4,
-        "1-2PM": 3
+        "AM DR-[3:30-4PM]": 4,
+        "AM DR-[1-2PM]": 2,
+        "1-2PM-[3:30-4PM]": 1,
+        "AM DR [Low-High]": 1,
+        "11AM-1PM-[3:30-4PM]": 1
       }
     },
     "Pre-CPI": {
@@ -77,10 +79,11 @@
       "am_capture_count": 7,
       "am_capture_n": 10,
       "rth_range": {
-        "AM DR": 7,
-        "11AM-1PM": 6,
-        "3:30-4PM": 4,
-        "2:50-3:10": 3
+        "AM DR-[3:30-4PM]": 3,
+        "AM DR-[2:50-3:10]": 3,
+        "AM DR-[1-2PM]": 1,
+        "AM DR-[11AM-1PM]": 2,
+        "11AM-1PM-[3:30-4PM]": 1
       }
     },
     "CPI": {
@@ -101,10 +104,11 @@
       "am_capture_count": 9,
       "am_capture_n": 10,
       "rth_range": {
-        "AM DR": 9,
-        "11AM-1PM": 5,
-        "3:30-4PM": 3,
-        "1-2PM": 3
+        "AM DR-[3:30-4PM]": 3,
+        "AM DR [Low-High]": 1,
+        "AM DR-[1-2PM]": 3,
+        "11AM-1PM-[11AM-1PM]": 1,
+        "AM DR-[11AM-1PM]": 2
       }
     },
     "Pre-FOMC": {
@@ -125,9 +129,10 @@
       "am_capture_count": 7,
       "am_capture_n": 7,
       "rth_range": {
-        "AM DR": 7,
-        "11AM-1PM": 6,
-        "2:50-3:10": 1
+        "AM DR-[3:30-4PM]": 1,
+        "AM DR-[1-2PM]": 1,
+        "AM DR-[2:50-3:10]": 1,
+        "AM DR-[11AM-1PM]": 4
       }
     },
     "FOMC": {
@@ -148,11 +153,11 @@
       "am_capture_count": 8,
       "am_capture_n": 10,
       "rth_range": {
-        "AM DR": 8,
-        "3:30-4PM": 5,
-        "11AM-1PM": 4,
-        "2:30-4PM": 2,
-        "2:50-3:10": 1
+        "AM DR-[2:50-3:10]": 1,
+        "AM DR-[11AM-1PM]": 2,
+        "11AM-1PM-[3:30-4PM]": 2,
+        "AM DR-[3:30-4PM]": 4,
+        "PM [LOD-HOD]": 1
       }
     },
     "Pre-PPI": {
@@ -173,9 +178,9 @@
       "am_capture_count": 4,
       "am_capture_n": 4,
       "rth_range": {
-        "AM DR": 4,
-        "11AM-1PM": 2,
-        "3:30-4PM": 2
+        "AM DR-[11AM-1PM]": 2,
+        "AM DR [Low-High]": 1,
+        "AM DR-[3:30-4PM]": 1
       }
     },
     "PPI": {
@@ -196,11 +201,11 @@
       "am_capture_count": 9,
       "am_capture_n": 10,
       "rth_range": {
-        "AM DR": 9,
-        "3:30-4PM": 4,
-        "11AM-1PM": 3,
-        "1-2PM": 2,
-        "2:50-3:10": 2
+        "AM DR-[11AM-1PM]": 3,
+        "AM DR-[1-2PM]": 2,
+        "AM DR-[3:30-4PM]": 2,
+        "AM DR-[2:50-3:10]": 2,
+        "11AM-1PM-[3:30-4PM]": 1
       }
     }
   }
