@@ -29,5 +29,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/macro_events.json
+          if [ -f data/debug.log ]; then
+            git add data/debug.log
+          elif git ls-files --error-unmatch data/debug.log > /dev/null 2>&1; then
+            git rm --cached data/debug.log
+          fi
           git diff --staged --quiet || git commit -m "Sync macro events data [skip ci]"
           git push
