@@ -85,14 +85,14 @@ const STALE_MINUTES = 60;
 let chartInstances = {};
 const CATS = ["Pre-NFP","NFP","Pre-CPI","CPI","Pre-FOMC","FOMC","Pre-PPI","PPI"];
 const DIR_LABELS = ["DOWNCLOSE","UPCLOSE","BOTHWAYS","SIDEWAYS"];
-const DIR_COLORS = { DOWNCLOSE: '#dc2626', UPCLOSE: '#16a34a', BOTHWAYS: '#f59e0b', SIDEWAYS: '#9ca3af' };
+const DIR_COLORS = { DOWNCLOSE: '#c2727a', UPCLOSE: '#7fa88a', BOTHWAYS: '#d9b072', SIDEWAYS: '#a8a8a8' };
 
 // Draws each stacked bar as plain flat rectangles, sorted so the LARGEST
 // segment sits at the TOP and values decrease going down — computed
 // INDEPENDENTLY per bar/category, since Chart.js's native stacking only
 // supports one shared dataset order for every bar and can't guarantee a
 // per-bar "highest at top" ordering on its own.
-function sortedStackPlugin(dataByCategory, colorMap) {
+function sortedStackPlugin(dataByCategory, colorMap, widthScale = 1) {
   return {
     id: 'sortedStack',
     afterDatasetsDraw(chart) {
@@ -104,9 +104,9 @@ function sortedStackPlugin(dataByCategory, colorMap) {
         if (!barEl) return;
         const entries = Object.entries(dataByCategory[catLabel] || {})
           .filter(([, v]) => v > 0)
-          .sort((a, b) => a[1] - b[1]); // smallest first -> drawn at the bottom, largest ends up on top
+          .sort((a, b) => b[1] - a[1]); // largest first -> drawn at the bottom
         const x = barEl.x;
-        const width = barEl.width;
+        const width = barEl.width * widthScale;
         let cumulative = 0;
         entries.forEach(([label, value]) => {
           const yBottom = yScale.getPixelForValue(cumulative);
@@ -175,7 +175,7 @@ async function loadData() {
 
   // Direction bias — native bars are drawn transparent (Chart.js still needs
   // them for correct axis scaling); the visible flat stacked bars are drawn
-  // by sortedStackPlugin, sorted independently per category (highest at top).
+  // by sortedStackPlugin, sorted independently per category (largest at bottom).
   const directionByCategory = {};
   CATS.forEach(c => { directionByCategory[c] = (cats[c] && cats[c].direction_count) || {}; });
   const directionDatasets = DIR_LABELS.map(lbl => ({
@@ -186,7 +186,7 @@ async function loadData() {
   chartInstances.direction = new Chart(document.getElementById('chart-direction'), {
     type: 'bar',
     data: { labels: CATS, datasets: directionDatasets },
-    plugins: [sortedStackPlugin(directionByCategory, DIR_COLORS)],
+    plugins: [sortedStackPlugin(directionByCategory, DIR_COLORS, 0.5)],
     options: {
       maintainAspectRatio: false,
       plugins: {
