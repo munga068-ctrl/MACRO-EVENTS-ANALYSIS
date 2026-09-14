@@ -207,10 +207,31 @@ def main():
 
     stats = build_stats(pages)
     os.makedirs("data", exist_ok=True)
+
+    # TEMPORARY DIAGNOSTIC: query the DIRECTION table directly (not through
+    # INDICES LOG) to see if ITS relation back to INDICES LOG resolves —
+    # isolates whether this is a one-directional visibility issue.
+    try:
+        dir_url = "https://api.notion.com/v1/data_sources/33af7bb7-7d6d-80b1-bd2e-000bf31c2649/query"
+        req = urllib.request.Request(
+            dir_url, data=json.dumps({"page_size": 5}).encode(),
+            headers={"Authorization": f"Bearer {NOTION_TOKEN}", "Notion-Version": NOTION_VERSION, "Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req) as resp:
+            dir_data = json.loads(resp.read())
+        rows = []
+        for r in dir_data.get("results", []):
+            name = "".join(t.get("plain_text", "") for t in r.get("properties", {}).get("Name", {}).get("title", []))
+            rows.append({"name": name, "properties": list(r.get("properties", {}).keys()), "raw": r.get("properties", {})})
+        with open("data/debug.log", "w") as f:
+            f.write(json.dumps(rows, indent=2, default=str))
+    except Exception as e:
+        with open("data/debug.log", "w") as f:
+            f.write(f"Direct DIRECTION query failed: {e}")
+
     with open("data/macro_events.json", "w") as f:
         json.dump(stats, f, indent=2)
-    if os.path.exists("data/debug.log"):
-        os.remove("data/debug.log")
     print(f"Synced {len(pages)} tagged pages -> data/macro_events.json")
 
 
