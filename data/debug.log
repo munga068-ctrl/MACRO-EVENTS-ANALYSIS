@@ -1,1 +1,458 @@
-Direct DIRECTION query failed: HTTP Error 404: Not Found
+[
+  {
+    "name": "SIDEWAYS",
+    "properties": [
+      "INDICES LOG",
+      "Name"
+    ],
+    "raw": {
+      "INDICES LOG": {
+        "id": "a%5Dlp",
+        "type": "relation",
+        "relation": [
+          {
+            "id": "325f7bb7-7d6d-8152-81bc-f40a9be1e310"
+          },
+          {
+            "id": "326f7bb7-7d6d-81bb-9a4b-d821fd312215"
+          },
+          {
+            "id": "32df7bb7-7d6d-8106-8f94-e2b53f01c1e9"
+          },
+          {
+            "id": "30cf7bb7-7d6d-8137-88ec-d2452ac9c5f1"
+          },
+          {
+            "id": "2e2f7bb7-7d6d-81b2-8388-f2aa0ec99bce"
+          },
+          {
+            "id": "336f7bb7-7d6d-81f4-832c-fab37d3d76c3"
+          },
+          {
+            "id": "294f7bb7-7d6d-81b4-aa15-c449c5e77a75"
+          },
+          {
+            "id": "296f7bb7-7d6d-8197-a1aa-c00add806eb3"
+          },
+          {
+            "id": "2cbf7bb7-7d6d-8137-8f4d-dcf825e630e5"
+          },
+          {
+            "id": "2cdf7bb7-7d6d-81ce-9f0f-fd9ebcf76a4c"
+          },
+          {
+            "id": "34ff7bb7-7d6d-8100-b130-f94aa6934f55"
+          },
+          {
+            "id": "350f7bb7-7d6d-815c-a705-f1b0b0a72fb7"
+          },
+          {
+            "id": "351f7bb7-7d6d-811d-a328-dc038e25821c"
+          },
+          {
+            "id": "36ff7bb7-7d6d-811c-ab8a-edf10aed018a"
+          },
+          {
+            "id": "381f7bb7-7d6d-8080-a207-ff092e926023"
+          },
+          {
+            "id": "381f7bb7-7d6d-80e0-b480-d03338bbe37d"
+          },
+          {
+            "id": "388f7bb7-7d6d-81da-a562-f496af9740b2"
+          },
+          {
+            "id": "38af7bb7-7d6d-811b-af29-e153e34bdab6"
+          },
+          {
+            "id": "3a6f7bb7-7d6d-812c-92c4-dd557d69bbad"
+          },
+          {
+            "id": "2bff7bb7-7d6d-81bd-9d54-f47a149bf76f"
+          },
+          {
+            "id": "2d8f7bb7-7d6d-8166-b57f-fcf692c345ee"
+          },
+          {
+            "id": "3c2f7bb7-7d6d-8182-831b-d63202c92bbc"
+          },
+          {
+            "id": "3c7f7bb7-7d6d-818a-b9a1-df89df29005a"
+          },
+          {
+            "id": "3cdf7bb7-7d6d-8138-b712-f2933f03e026"
+          },
+          {
+            "id": "3d7f7bb7-7d6d-817b-ac3f-f24d616c55d8"
+          }
+        ],
+        "has_more": true
+      },
+      "Name": {
+        "id": "title",
+        "type": "title",
+        "title": [
+          {
+            "type": "text",
+            "text": {
+              "content": "SIDEWAYS",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "SIDEWAYS",
+            "href": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "BOTHWAYS",
+    "properties": [
+      "INDICES LOG",
+      "Name"
+    ],
+    "raw": {
+      "INDICES LOG": {
+        "id": "a%5Dlp",
+        "type": "relation",
+        "relation": [
+          {
+            "id": "31bf7bb7-7d6d-81b4-b7c1-c23622262bfd"
+          },
+          {
+            "id": "31ff7bb7-7d6d-8158-91bb-e426bfabe3d2"
+          },
+          {
+            "id": "306f7bb7-7d6d-81ae-9b1f-de3751d21bc0"
+          },
+          {
+            "id": "30bf7bb7-7d6d-819c-b861-d23cd3cfe30e"
+          },
+          {
+            "id": "2dff7bb7-7d6d-818b-b321-c7c2bb5ce2fd"
+          },
+          {
+            "id": "2e1f7bb7-7d6d-8124-b786-f20b88f0a016"
+          },
+          {
+            "id": "2bdf7bb7-7d6d-8159-b79c-c5d385499dea"
+          },
+          {
+            "id": "2c0f7bb7-7d6d-8174-99a6-c3b93b923ab4"
+          },
+          {
+            "id": "29ff7bb7-7d6d-8011-b12e-c20bf9cced22"
+          },
+          {
+            "id": "28ef7bb7-7d6d-81cf-8db0-d83d23be01da"
+          },
+          {
+            "id": "2a6f7bb7-7d6d-805c-9490-f651ea04bff1"
+          },
+          {
+            "id": "33ef7bb7-7d6d-81c9-b280-fde4df918882"
+          },
+          {
+            "id": "344f7bb7-7d6d-817a-a615-c59122c0c530"
+          },
+          {
+            "id": "34bf7bb7-7d6d-816c-816d-c9109eb37704"
+          },
+          {
+            "id": "352f7bb7-7d6d-812e-ba1b-f3b5258aed19"
+          },
+          {
+            "id": "359f7bb7-7d6d-816e-b868-ce502bea6ee5"
+          },
+          {
+            "id": "35ef7bb7-7d6d-8142-b2c0-fa3077377987"
+          },
+          {
+            "id": "361f7bb7-7d6d-81e0-bc64-d198ba24de92"
+          },
+          {
+            "id": "365f7bb7-7d6d-81b5-a99a-d7385f3309e3"
+          },
+          {
+            "id": "368f7bb7-7d6d-8169-9ab5-eca79008e18e"
+          },
+          {
+            "id": "38bf7bb7-7d6d-818d-9a46-f403e5d8e8fd"
+          },
+          {
+            "id": "3abf7bb7-7d6d-8121-9e9c-dfd2dcc0073e"
+          },
+          {
+            "id": "2b0f7bb7-7d6d-81a2-8dbd-ff6397ab614b"
+          },
+          {
+            "id": "29cf7bb7-7d6d-80e8-b6e2-d8dc3893d0ae"
+          },
+          {
+            "id": "2a8f7bb7-7d6d-8175-9a9b-d409bbb657b0"
+          }
+        ],
+        "has_more": true
+      },
+      "Name": {
+        "id": "title",
+        "type": "title",
+        "title": [
+          {
+            "type": "text",
+            "text": {
+              "content": "BOTHWAYS",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "BOTHWAYS",
+            "href": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "DOWNCLOSE",
+    "properties": [
+      "INDICES LOG",
+      "Name"
+    ],
+    "raw": {
+      "INDICES LOG": {
+        "id": "a%5Dlp",
+        "type": "relation",
+        "relation": [
+          {
+            "id": "321f7bb7-7d6d-8131-839d-d9082ada605b"
+          },
+          {
+            "id": "322f7bb7-7d6d-816d-b7b1-fec70a9a2810"
+          },
+          {
+            "id": "327f7bb7-7d6d-81cf-8669-da9124a7ef7a"
+          },
+          {
+            "id": "329f7bb7-7d6d-814d-8159-e6ad1e8ddcbe"
+          },
+          {
+            "id": "32ef7bb7-7d6d-81f7-bc3c-ca69d5831108"
+          },
+          {
+            "id": "32ff7bb7-7d6d-81db-9d26-c86b22711032"
+          },
+          {
+            "id": "330f7bb7-7d6d-8131-b54c-c7c0fd051d53"
+          },
+          {
+            "id": "333f7bb7-7d6d-8173-862c-f4ff1cdd74c1"
+          },
+          {
+            "id": "2fcf7bb7-7d6d-8143-a642-e6434aa82994"
+          },
+          {
+            "id": "2fdf7bb7-7d6d-810b-9847-efe0f2ddb94a"
+          },
+          {
+            "id": "2fef7bb7-7d6d-8121-beba-d4b33f163529"
+          },
+          {
+            "id": "303f7bb7-7d6d-8133-889a-deb6d07d62cd"
+          },
+          {
+            "id": "304f7bb7-7d6d-8111-8e3b-c8ac19a0224b"
+          },
+          {
+            "id": "305f7bb7-7d6d-81f1-9d2a-cc54b25859a4"
+          },
+          {
+            "id": "310f7bb7-7d6d-8141-b935-ecdf9f773588"
+          },
+          {
+            "id": "313f7bb7-7d6d-8164-9772-c3aeacba2ca8"
+          },
+          {
+            "id": "2dcf7bb7-7d6d-8141-b4b6-ee4a8f392cb2"
+          },
+          {
+            "id": "320f7bb7-7d6d-8127-a24d-dfcac248ca26"
+          },
+          {
+            "id": "2e7f7bb7-7d6d-81f4-820a-f05934de4d74"
+          },
+          {
+            "id": "2e8f7bb7-7d6d-8102-95f9-c3f342656c21"
+          },
+          {
+            "id": "2e9f7bb7-7d6d-81db-ba80-d785597434cc"
+          },
+          {
+            "id": "2eaf7bb7-7d6d-81e6-b0f8-db13a61cbe16"
+          },
+          {
+            "id": "2edf7bb7-7d6d-8100-92a9-fee9a77b9c08"
+          },
+          {
+            "id": "2f0f7bb7-7d6d-8162-8efe-c197e1e1077f"
+          },
+          {
+            "id": "2f6f7bb7-7d6d-81bd-a18a-e0e774b1a9e1"
+          }
+        ],
+        "has_more": true
+      },
+      "Name": {
+        "id": "title",
+        "type": "title",
+        "title": [
+          {
+            "type": "text",
+            "text": {
+              "content": "DOWNCLOSE",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "DOWNCLOSE",
+            "href": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "UPCLOSE",
+    "properties": [
+      "INDICES LOG",
+      "Name"
+    ],
+    "raw": {
+      "INDICES LOG": {
+        "id": "a%5Dlp",
+        "type": "relation",
+        "relation": [
+          {
+            "id": "335f7bb7-7d6d-8150-9cbe-dab45ecd41b2"
+          },
+          {
+            "id": "317f7bb7-7d6d-81e8-8844-c1f751a852c2"
+          },
+          {
+            "id": "318f7bb7-7d6d-81b0-89fa-c9fbd9f77d77"
+          },
+          {
+            "id": "319f7bb7-7d6d-819e-b09a-c96c3c110d0b"
+          },
+          {
+            "id": "31ef7bb7-7d6d-816e-9f5d-e4ed153e35b8"
+          },
+          {
+            "id": "328f7bb7-7d6d-8168-8d85-f603b63c463a"
+          },
+          {
+            "id": "334f7bb7-7d6d-8180-82d1-cf8c8821f975"
+          },
+          {
+            "id": "2fbf7bb7-7d6d-8157-8088-f28c77c8f2cb"
+          },
+          {
+            "id": "2fff7bb7-7d6d-8187-9982-d8a4deba7670"
+          },
+          {
+            "id": "302f7bb7-7d6d-8143-8afe-e6df0b14dd2f"
+          },
+          {
+            "id": "30af7bb7-7d6d-81a7-89a7-cd1ba1087b9d"
+          },
+          {
+            "id": "30df7bb7-7d6d-816f-add4-de064fd7fa72"
+          },
+          {
+            "id": "311f7bb7-7d6d-815b-972b-cd5b1884dcde"
+          },
+          {
+            "id": "312f7bb7-7d6d-81c0-80f1-cc76fa396fcd"
+          },
+          {
+            "id": "314f7bb7-7d6d-8182-9d12-e0acbe566504"
+          },
+          {
+            "id": "2e0f7bb7-7d6d-8180-97f9-d1dc94972ad8"
+          },
+          {
+            "id": "2e3f7bb7-7d6d-815b-a2c2-dcccf938d4cf"
+          },
+          {
+            "id": "2e6f7bb7-7d6d-81d6-989d-c8e7093ea130"
+          },
+          {
+            "id": "2eff7bb7-7d6d-816e-aa11-cae0ab1f8432"
+          },
+          {
+            "id": "2f1f7bb7-7d6d-815d-b8d7-c8bafb6c46a3"
+          },
+          {
+            "id": "2f4f7bb7-7d6d-81c2-ad8c-e5a012ae653b"
+          },
+          {
+            "id": "2f6f7bb7-7d6d-803c-8b0e-cc4b3f780303"
+          },
+          {
+            "id": "2bcf7bb7-7d6d-811f-a813-dfc4b9a86ce5"
+          },
+          {
+            "id": "2bef7bb7-7d6d-8190-a42d-ea9304a400bf"
+          },
+          {
+            "id": "2c4f7bb7-7d6d-812d-9f9c-ecb7fdd2a766"
+          }
+        ],
+        "has_more": true
+      },
+      "Name": {
+        "id": "title",
+        "type": "title",
+        "title": [
+          {
+            "type": "text",
+            "text": {
+              "content": "UPCLOSE",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "UPCLOSE",
+            "href": null
+          }
+        ]
+      }
+    }
+  }
+]

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T20:26:05.253212Z",
+  "generated_at": "2026-09-14T20:41:55.290046Z",
   "category_order": [
     "Pre-NFP",
     "NFP",
@@ -12,510 +12,555 @@
   ],
   "categories": {
     "Pre-NFP": {
-      "n_direction": 0,
+      "n_direction": 8,
       "direction_count": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 4,
+        "UPCLOSE": 2,
+        "BOTHWAYS": 1,
+        "SIDEWAYS": 1
       },
       "direction_pct": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 50.0,
+        "UPCLOSE": 25.0,
+        "BOTHWAYS": 12.5,
+        "SIDEWAYS": 12.5
       },
-      "am_capture_pct": null,
-      "am_capture_count": 0,
-      "am_capture_n": 0,
-      "rth_range": {},
+      "am_capture_pct": 75.0,
+      "am_capture_count": 6,
+      "am_capture_n": 8,
+      "rth_range": {
+        "AM DR-[1-2PM]": 2,
+        "AM DR-[11AM-1PM]": 1,
+        "AM DR-[3:30-4PM]": 2,
+        "11AM-1PM-[1-2PM]": 1,
+        "AM DR [Low-High]": 2
+      },
       "days": [
         {
           "name": "NQ #45-Pre NFP",
           "date": "2025-12-15",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #59-Pre NFP",
           "date": "2026-01-08",
-          "direction": null
+          "direction": "SIDEWAYS"
         },
         {
           "name": "NQ #81-Pre NFP",
           "date": "2026-02-10",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #97-Pre NFP",
           "date": "2026-03-05",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #140-PRE NFP",
           "date": "2026-05-07",
-          "direction": null
+          "direction": "BOTHWAYS"
         },
         {
           "name": "NQ #159-Pre NFP",
           "date": "2026-06-04",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #177-Pre NFP",
           "date": "2026-07-01",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #222-Pre NFP",
           "date": "2026-09-03",
-          "direction": null
+          "direction": "UPCLOSE"
         }
       ]
     },
     "NFP": {
-      "n_direction": 0,
+      "n_direction": 9,
       "direction_count": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 5,
+        "UPCLOSE": 2,
+        "BOTHWAYS": 1,
+        "SIDEWAYS": 1
       },
       "direction_pct": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 55.6,
+        "UPCLOSE": 22.2,
+        "BOTHWAYS": 11.1,
+        "SIDEWAYS": 11.1
       },
-      "am_capture_pct": null,
-      "am_capture_count": 0,
-      "am_capture_n": 0,
-      "rth_range": {},
+      "am_capture_pct": 77.8,
+      "am_capture_count": 7,
+      "am_capture_n": 9,
+      "rth_range": {
+        "AM DR-[1-2PM]": 2,
+        "AM DR-[3:30-4PM]": 4,
+        "11AM-1PM-[3:30-4PM]": 1,
+        "AM DR [Low-High]": 1,
+        "1-2PM-[3:30-4PM]": 1
+      },
       "days": [
         {
           "name": "NQ #30-NFP",
           "date": "2025-11-20",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #46-NFP",
           "date": "2025-12-16",
-          "direction": null
+          "direction": "SIDEWAYS"
         },
         {
           "name": "NQ #60-NFP",
           "date": "2026-01-09",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #82-NFP",
           "date": "2026-02-11",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #98-NFP",
           "date": "2026-03-06",
-          "direction": null
+          "direction": "BOTHWAYS"
         },
         {
           "name": "NQ #141-NFP",
           "date": "2026-05-08",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #160-NFP",
           "date": "2026-06-05",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #178-NFP",
           "date": "2026-07-02",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #223-NFP",
           "date": "2026-09-04",
-          "direction": null
+          "direction": "DOWNCLOSE"
         }
       ]
     },
     "Pre-CPI": {
-      "n_direction": 0,
+      "n_direction": 10,
       "direction_count": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
+        "DOWNCLOSE": 5,
+        "UPCLOSE": 4,
+        "BOTHWAYS": 1,
         "SIDEWAYS": 0
       },
       "direction_pct": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 50.0,
+        "UPCLOSE": 40.0,
+        "BOTHWAYS": 10.0,
+        "SIDEWAYS": 0.0
       },
-      "am_capture_pct": null,
-      "am_capture_count": 0,
-      "am_capture_n": 0,
-      "rth_range": {},
+      "am_capture_pct": 90.0,
+      "am_capture_count": 9,
+      "am_capture_n": 10,
+      "rth_range": {
+        "AM DR-[2:50-3:10]": 3,
+        "11AM-1PM-[3:30-4PM]": 1,
+        "AM DR-[11AM-1PM]": 2,
+        "AM DR-[3:30-4PM]": 3,
+        "AM DR-[1-2PM]": 1
+      },
       "days": [
         {
           "name": "NQ #10-PRE-CPI",
           "date": "2025-10-23",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #47-PRE CPI",
           "date": "2025-12-17",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #61-PRE CPI",
           "date": "2026-01-12",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #83-Pre CPI",
           "date": "2026-02-12",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #100-Pre CPI",
           "date": "2026-03-10",
-          "direction": null
+          "direction": "BOTHWAYS"
         },
         {
           "name": "NQ #120-Pre CPI",
           "date": "2026-04-09",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #142-Pre CPI",
           "date": "2026-05-11",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #162-Pre CPI",
           "date": "2026-06-09",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #184-Pre CPI",
           "date": "2026-07-13",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #205 Pre-CPI",
           "date": "2026-08-11",
-          "direction": null
+          "direction": "DOWNCLOSE"
         }
       ]
     },
     "CPI": {
-      "n_direction": 0,
+      "n_direction": 10,
       "direction_count": {
-        "DOWNCLOSE": 0,
+        "DOWNCLOSE": 4,
         "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "BOTHWAYS": 4,
+        "SIDEWAYS": 2
       },
       "direction_pct": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 40.0,
+        "UPCLOSE": 0.0,
+        "BOTHWAYS": 40.0,
+        "SIDEWAYS": 20.0
       },
-      "am_capture_pct": null,
-      "am_capture_count": 0,
-      "am_capture_n": 0,
-      "rth_range": {},
+      "am_capture_pct": 90.0,
+      "am_capture_count": 9,
+      "am_capture_n": 10,
+      "rth_range": {
+        "AM DR-[11AM-1PM]": 2,
+        "AM DR-[3:30-4PM]": 3,
+        "AM DR-[1-2PM]": 3,
+        "11AM-1PM-[11AM-1PM]": 1,
+        "AM DR [Low-High]": 1
+      },
       "days": [
         {
           "name": "NQ #11-CPI",
           "date": "2025-10-24",
-          "direction": null
+          "direction": "SIDEWAYS"
         },
         {
           "name": "NQ #48-CPI",
           "date": "2025-12-18",
-          "direction": null
+          "direction": "SIDEWAYS"
         },
         {
           "name": "NQ #62-CPI",
           "date": "2026-01-13",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #84-CPI",
           "date": "2026-02-13",
-          "direction": null
+          "direction": "BOTHWAYS"
         },
         {
           "name": "NQ #101-CPI",
           "date": "2026-03-11",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #121-CPI",
           "date": "2026-04-10",
-          "direction": null
+          "direction": "BOTHWAYS"
         },
         {
           "name": "NQ #143-CPI",
           "date": "2026-05-12",
-          "direction": null
+          "direction": "BOTHWAYS"
         },
         {
           "name": "NQ #163-CPI",
           "date": "2026-06-10",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #185-CPI",
           "date": "2026-07-14",
-          "direction": null
+          "direction": "BOTHWAYS"
         },
         {
           "name": "NQ #206-CPI",
           "date": "2026-08-12",
-          "direction": null
+          "direction": "DOWNCLOSE"
         }
       ]
     },
     "Pre-FOMC": {
-      "n_direction": 0,
+      "n_direction": 7,
       "direction_count": {
         "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "UPCLOSE": 3,
+        "BOTHWAYS": 2,
+        "SIDEWAYS": 2
       },
       "direction_pct": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 0.0,
+        "UPCLOSE": 42.9,
+        "BOTHWAYS": 28.6,
+        "SIDEWAYS": 28.6
       },
-      "am_capture_pct": null,
-      "am_capture_count": 0,
-      "am_capture_n": 0,
-      "rth_range": {},
+      "am_capture_pct": 100.0,
+      "am_capture_count": 7,
+      "am_capture_n": 7,
+      "rth_range": {
+        "AM DR-[11AM-1PM]": 4,
+        "AM DR-[2:50-3:10]": 1,
+        "AM DR-[1-2PM]": 1,
+        "AM DR-[3:30-4PM]": 1
+      },
       "days": [
         {
           "name": "NQ #13-Pre FOMC",
           "date": "2025-10-28",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #41-Pre FOMC",
           "date": "2025-12-09",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #71-Pre FOMC",
           "date": "2026-01-27",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #105-Pre FOMC-Pre PPI",
           "date": "2026-03-17",
-          "direction": null
+          "direction": "SIDEWAYS"
         },
         {
           "name": "NQ #133-Pre FOMC",
           "date": "2026-04-28",
-          "direction": null
+          "direction": "SIDEWAYS"
         },
         {
           "name": "NQ #148-Pre FOMC",
           "date": "2026-05-19",
-          "direction": null
+          "direction": "BOTHWAYS"
         },
         {
           "name": "NQ #195 Pre FOMC",
           "date": "2026-07-28",
-          "direction": null
+          "direction": "BOTHWAYS"
         }
       ]
     },
     "FOMC": {
-      "n_direction": 0,
+      "n_direction": 10,
       "direction_count": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 4,
+        "UPCLOSE": 3,
+        "BOTHWAYS": 2,
+        "SIDEWAYS": 1
       },
       "direction_pct": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 40.0,
+        "UPCLOSE": 30.0,
+        "BOTHWAYS": 20.0,
+        "SIDEWAYS": 10.0
       },
-      "am_capture_pct": null,
-      "am_capture_count": 0,
-      "am_capture_n": 0,
-      "rth_range": {},
+      "am_capture_pct": 70.0,
+      "am_capture_count": 7,
+      "am_capture_n": 10,
+      "rth_range": {
+        "PM [LOD-HOD]": 1,
+        "11AM-1PM-[3:30-4PM]": 2,
+        "AM DR-[3:30-4PM]": 4,
+        "AM DR-[11AM-1PM]": 2,
+        "AM DR-[2:50-3:10]": 1
+      },
       "days": [
         {
           "name": "NQ #14-FOMC FUNDS RATE",
           "date": "2025-10-29",
-          "direction": null
+          "direction": "BOTHWAYS"
         },
         {
           "name": "NQ #29-FOMC",
           "date": "2025-11-19",
-          "direction": null
+          "direction": "BOTHWAYS"
         },
         {
           "name": "NQ #42-FOMC FUNDS RATE",
           "date": "2025-12-10",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #72-FOMC FUNDS RATE",
           "date": "2026-01-28",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #106-FOMC-PPI",
           "date": "2026-03-18",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #134-FOMC",
           "date": "2026-04-29",
-          "direction": null
+          "direction": "SIDEWAYS"
         },
         {
           "name": "NQ #149-FOMC",
           "date": "2026-05-20",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #168-FOMC Funds Rate",
           "date": "2026-06-17",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #181-FOMC",
           "date": "2026-07-08",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #196 FOMC Rates",
           "date": "2026-07-29",
-          "direction": null
+          "direction": "DOWNCLOSE"
         }
       ]
     },
     "Pre-PPI": {
-      "n_direction": 0,
+      "n_direction": 4,
       "direction_count": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
+        "DOWNCLOSE": 2,
+        "UPCLOSE": 1,
         "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "SIDEWAYS": 1
       },
       "direction_pct": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 50.0,
+        "UPCLOSE": 25.0,
+        "BOTHWAYS": 0.0,
+        "SIDEWAYS": 25.0
       },
-      "am_capture_pct": null,
-      "am_capture_count": 0,
-      "am_capture_n": 0,
-      "rth_range": {},
+      "am_capture_pct": 100.0,
+      "am_capture_count": 4,
+      "am_capture_n": 4,
+      "rth_range": {
+        "AM DR-[3:30-4PM]": 1,
+        "AM DR-[11AM-1PM]": 2,
+        "AM DR [Low-High]": 1
+      },
       "days": [
         {
           "name": "NQ #73-Pre PPI",
           "date": "2026-01-29",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #92-Pre PPI",
           "date": "2026-02-26",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #105-Pre FOMC-Pre PPI",
           "date": "2026-03-17",
-          "direction": null
+          "direction": "SIDEWAYS"
         },
         {
           "name": "NQ #122-Pre PPI",
           "date": "2026-04-13",
-          "direction": null
+          "direction": "UPCLOSE"
         }
       ]
     },
     "PPI": {
-      "n_direction": 0,
+      "n_direction": 10,
       "direction_count": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
+        "DOWNCLOSE": 4,
+        "UPCLOSE": 6,
         "BOTHWAYS": 0,
         "SIDEWAYS": 0
       },
       "direction_pct": {
-        "DOWNCLOSE": 0,
-        "UPCLOSE": 0,
-        "BOTHWAYS": 0,
-        "SIDEWAYS": 0
+        "DOWNCLOSE": 40.0,
+        "UPCLOSE": 60.0,
+        "BOTHWAYS": 0.0,
+        "SIDEWAYS": 0.0
       },
-      "am_capture_pct": null,
-      "am_capture_count": 0,
-      "am_capture_n": 0,
-      "rth_range": {},
+      "am_capture_pct": 90.0,
+      "am_capture_count": 9,
+      "am_capture_n": 10,
+      "rth_range": {
+        "AM DR-[2:50-3:10]": 2,
+        "AM DR-[11AM-1PM]": 3,
+        "11AM-1PM-[3:30-4PM]": 1,
+        "AM DR-[3:30-4PM]": 2,
+        "AM DR-[1-2PM]": 2
+      },
       "days": [
         {
           "name": "NQ #33-PPI",
           "date": "2025-11-25",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #63-PPI",
           "date": "2026-01-14",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #74-PPI",
           "date": "2026-01-30",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #93-PPI",
           "date": "2026-02-27",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #106-FOMC-PPI",
           "date": "2026-03-18",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #123-PPI",
           "date": "2026-04-14",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #144-PPI",
           "date": "2026-05-13",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #164-PPI",
           "date": "2026-06-11",
-          "direction": null
+          "direction": "UPCLOSE"
         },
         {
           "name": "NQ #186-PPI",
           "date": "2026-07-15",
-          "direction": null
+          "direction": "DOWNCLOSE"
         },
         {
           "name": "NQ #207-PPI",
           "date": "2026-08-13",
-          "direction": null
+          "direction": "UPCLOSE"
         }
       ]
     }
